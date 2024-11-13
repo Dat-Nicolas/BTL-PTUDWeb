@@ -33,6 +33,10 @@ a {
 
 /* responsive */
 
+.col {
+    flex: 0 0 20%; /* 5 cột */
+    box-sizing: border-box;
+}
 
 .grid__row {
     display: flex;
@@ -237,41 +241,3 @@ a {
     line-height:var(--height);
     text-align: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

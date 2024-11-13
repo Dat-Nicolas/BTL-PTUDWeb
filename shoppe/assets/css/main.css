@@ -137,7 +137,7 @@
 .header__navbar-item:hover,
 .header__navbar-icon-link:hover, 
 .header__navbar-item-link:hover {
-    z-index: 1;
+    z-index: 2;
     cursor: pointer; 
     color: rgba(255,255,255,0.7);
 }
@@ -236,6 +236,7 @@
     will-change: opacity,transform;
     display: none;
     border-radius: 2px;
+    z-index: 2;
 }
 
 .header__notify::before {
@@ -346,10 +347,19 @@
 
 
 /* authen modal */
+/* .modal {
+    display: none;
+}
+
+.modal.active {
+    display: flex;
+} */
+
 .auth-form {
     background-color: var(--white-color);
     border-radius: 5px;
     overflow: hidden;
+    /* display:none; */
 }
 
 .auth-form__container {
@@ -545,7 +555,7 @@
 
 .header__cart-wrap:hover .header__cart-list {
     display: block;
-    }
+}
 
 .header__cart-list {
     position: absolute;
@@ -693,8 +703,8 @@
     content: "";
     display: block;
     width: 100%;
-    height: 10px;
-    top: -10px;
+    height: 15px;
+    top: -15px;
     left: 0;
     position:absolute;
 }
@@ -946,6 +956,12 @@
 
 /* app container */
 
+.message-shopee {
+    color: var(--primary-color);
+    font-size: 1.8rem; 
+    animation: changeColor 10s linear infinite;
+}
+
 .app__container {
     background-color: #f5f5f5;
 }
@@ -1002,6 +1018,8 @@
     color: var(--primary-color);
 }
 
+
+
 .category-item--active .category-item__link::before{
     position: absolute;
     top: 50%;
@@ -1020,6 +1038,11 @@
     padding: 8px 20px;
     display: block;
     transition:right linear 0.1s ;
+}
+
+.category-item__link::marker {
+    color: red;
+    font-size: 23px;
 }
 
 .category-item__link:hover {
@@ -1109,6 +1132,17 @@
     min-width:90px;
 }
 
+.select-input::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 5px;
+    top: 30px;
+    left: 0;
+    position:absolute;
+}
+
+
 .home-filter__page-num {
     font-size: 1.5rem;
     color: var(--text-color);
@@ -1168,6 +1202,8 @@
     box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
     transition: transform linear 0.1s;
     will-change: transform;
+
+   
 }
 
 .home-product-item:hover {
@@ -1177,6 +1213,8 @@
 }
 
 .home-product-item__img {
+    height: 138px; 
+    width: 100%;
     padding-top: 100%;
     background-repeat: no-repeat;
     /* background-size: contain; */
@@ -1184,6 +1222,12 @@
     background-position: top center;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
+    
+    background-color: transparent;
+    border: 4px solid;
+    border-image-source: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000);
+    border-image-slice: 1;
+    animation: animate-border 2s linear infinite;
 }
 
 .home-product-item__name {
@@ -1218,7 +1262,7 @@
 .home-product-item__price-current{
     font-size: 1.6rem;
     color: var(--primary-color);
-    margin-left: 6px;
+    margin-left: 10px;
 }
 
 .home-product-item__action {
