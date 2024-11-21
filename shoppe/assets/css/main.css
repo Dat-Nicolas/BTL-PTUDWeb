@@ -346,21 +346,24 @@
 
 
 
-/* authen modal */
-/* .modal {
-    display: none;
+
+/* modal */
+
+.modal__body {
+    width: 50%;
+    height: 65%;
 }
 
-.modal.active {
-    display: flex;
-} */
+/* auth-form */
 
 .auth-form {
-    background-color: var(--white-color);
     border-radius: 5px;
     overflow: hidden;
-    /* display:none; */
+    width: 80%;
+    display: flex;
+    margin: 100px auto;
 }
+
 
 .auth-form__container {
     padding: 0 32px;
@@ -1272,23 +1275,24 @@
 }
 
 .home-product-item__like {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
 }
 
-i.home-product-item__like-icon-fill {
-    display: none;
-    color: #f63d30;
+.home-product-item__like-icon-empty {
+    color: #b0b0b0; 
 }
 
-
-.home-product-item__like--liked .home-product-item__like-icon-fill {
-    display: inline-block;
+.home-product-item__like-icon-fill {
+    color: var(--primary-color); 
+    display: none; 
 }
 
-.home-product-item__like--liked .home-product-item__like-icon-empty {
-    display: none;
+.home-product-item__like.liked .home-product-item__like-icon-fill {
+    display: inline-block; 
 }
-
+.home-product-item__like.liked .home-product-item__like-icon-empty {
+    display: none; 
+}
 
 .home-product-item__rating {
     font-size: 1rem;
@@ -1496,9 +1500,81 @@ i.home-product-item__like-icon-fill {
 
 
 
+.product-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.product-modal__content {
+    background-color: white;
+    padding: 20px;
+    width: 80%;
+    max-width: 65%;
+    border-radius: 10px;
+    display: flex;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    background: none;
+    border: none;
+}
+
+.product-modal__img {
+    height: 100%;
+    width: 50%;
+}
+
+.product-modal__img img {
+    max-width: 70%;
+}
+
+.product-modal__details {
+    margin-left: 20px;
+    width: 30%;
+}
+.product-modal__details h2 {
+    font-size: 1.6rem;
+}
+
+.modal-price {
+    font-size: 2rem;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+}
+
+.modal-price #modal-old-price {
+    text-decoration: line-through;
+    font-size: 1.6rem;
+    color: grey;
+}
 
 
+.modal-price #modal-current-price {
+    color: var(--primary-color);
+}
 
+.order-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: 2rem;
+    margin: 10px 10px;
+    padding-top: 10px;
+    border: 3px solid var(--primary-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
 
 
 
