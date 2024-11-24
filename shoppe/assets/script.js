@@ -159,15 +159,15 @@ function toggleLike(element) {
 
 
 
-
 window.addEventListener('DOMContentLoaded', () => {
-  // Mở modal khi người dùng click vào sản phẩm
-  const productItems = document.querySelectorAll('.home-product-item');
+  // Mở modal khi người dùng click vào ảnh sản phẩm
+  const productImages = document.querySelectorAll('.home-product-item__img');
 
-  productItems.forEach(item => {
-    item.addEventListener('click', (e) => {
+  productImages.forEach(img => {
+    img.addEventListener('click', (e) => {
       const modal = document.getElementById('product-modal');
-      const imgSrc = item.querySelector('.home-product-item__img').style.backgroundImage.slice(5, -2); // Extract image URL
+      const imgSrc = img.style.backgroundImage.slice(5, -2); // Extract image URL
+      const item = img.closest('.home-product-item'); // Lấy phần tử sản phẩm chứa ảnh
       const title = item.querySelector('.home-product-item__name').innerText;
       const oldPrice = item.querySelector('.home-product-item__price-old') ? item.querySelector('.home-product-item__price-old').innerText : '';
       const currentPrice = item.querySelector('.home-product-item__price-current').innerText;
