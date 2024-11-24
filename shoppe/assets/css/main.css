@@ -80,7 +80,7 @@
     position: absolute;
     top: -8px;
     right: 0;
-    width: 56%;
+    width: 80%;
     height: 8px;
 }
 
@@ -1532,7 +1532,6 @@
 }
 
 .product-modal__img {
-    height: 100%;
     width: 50%;
 }
 
