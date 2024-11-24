@@ -196,3 +196,200 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+
+
+// Lấy các phần tử cần thiết
+const orderBtn = document.getElementById('order-btn');
+const modal = document.getElementById('product-modal'); 
+const modalImg = document.getElementById('modal-img');
+const modalTitle = document.getElementById('modal-title');
+const notifyList = document.querySelector('.header__notify-list');
+const bellIcon = document.querySelector('.header__navbar-icon.far.fa-bell'); 
+const cartTotal = document.querySelector('.header__cart-total'); 
+
+// Xử lý sự kiện click "Add to Cart"
+orderBtn.addEventListener('click', function () {
+    const imgSrc = modalImg.src; // Lấy src của ảnh sản phẩm
+    const title = modalTitle.textContent; // Lấy tiêu đề sản phẩm
+
+    // Tạo phần tử thông báo mới
+    const notifyItem = document.createElement('li');
+    notifyItem.classList.add('header__notify-item', 'header__navbar-item--viewed');
+
+    notifyItem.innerHTML = `
+        <a href="" class="header__notify-link">
+            <img src="${imgSrc}" alt="" class="header__notify-img">
+            <div class="header__notify-info">
+                <span class="header__notify-name">${title}</span>
+                <span class="header__notify-description">Đã thêm vào giỏ hàng</span>
+            </div>
+        </a>
+    `;
+
+
+
+
+
+    
+    // Thêm phần tử vào danh sách thông báo
+    notifyList.prepend(notifyItem);
+
+    // Ẩn cả modal và overlay
+    modal.style.display = 'none';
+
+    // Thêm hiệu ứng nhấp nháy vào biểu tượng chuông
+    bellIcon.classList.add('blink');
+
+    // Xóa hiệu ứng sau 2 giây
+    setTimeout(() => {
+        bellIcon.classList.remove('blink');
+    }, 2000);
+
+    // Thêm sản phẩm vào giỏ hàng
+    const productName = modalTitle.innerText;
+    const productPrice = document.getElementById("modal-current-price").innerText;
+    const productImage = modalImg.src;
+    const productCategory = orderBtn.classList.contains("tech") ? "Đồ công nghệ" :
+                            orderBtn.classList.contains("food") ? "Đồ ăn" :
+                            orderBtn.classList.contains("fashion") ? "Thời trang" : "Chưa xác định";  // Lấy loại sản phẩm từ class
+    const quantity = 1;  
+
+    addToCart(productName, productPrice, productImage, productCategory, quantity);
+});
+
+// Thêm sản phẩm vào giỏ hàng
+function addToCart(name, price, image, category, quantity) {
+  // Tạo phần tử sản phẩm trong giỏ hàng
+  const cartItem = document.createElement("li");
+  cartItem.classList.add("header__cart-item");
+
+  cartItem.innerHTML = `
+      <img src="${image}" alt="" class="header__cart-img">
+      <div class="header__cart-item-info">
+          <div class="header__cart-item-head">
+              <h5 class="header__cart-item-name">${name}</h5>
+              <div class="header__cart-item-price-wrap">
+                  <span class="header__cart-item-price">${price}</span>
+                  <span class="header__cart-item-multiply">x</span>
+                  <span class="header__cart-item-quantity">${quantity}</span>
+              </div>
+          </div>
+          <div class="header__cart-item-body">
+              <!-- Chuyển các nút Cộng và Trừ lên trên nút Xóa -->
+              <button class="header__cart-item-decrease">-</button>
+              <button class="header__cart-item-increase">+</button>
+              <span class="header__cart-item-remove">Xóa</span>
+          </div>
+      </div>
+  `;
+
+  // Thêm sản phẩm vào giỏ hàng
+  document.getElementById("cart-items").appendChild(cartItem);
+
+  // Gán sự kiện "Xóa" cho nút xóa của sản phẩm trong giỏ hàng
+  cartItem.querySelector(".header__cart-item-remove").addEventListener("click", function() {
+    // Xóa sản phẩm khỏi giỏ hàng
+    cartItem.remove();
+
+    // Cập nhật lại số lượng sản phẩm trong biểu tượng giỏ hàng
+    updateCartNotice();
+    updateCartTotal();
+  });
+
+  // Gán sự kiện "Cộng" cho nút cộng số lượng
+  cartItem.querySelector(".header__cart-item-increase").addEventListener("click", function() {
+    const quantityElem = cartItem.querySelector(".header__cart-item-quantity");
+    let quantity = parseInt(quantityElem.innerText);
+    quantity++;
+
+    // Cập nhật lại số lượng và tính lại tổng tiền
+    quantityElem.innerText = quantity;
+    updateCartTotal();
+  });
+
+  // Gán sự kiện "Trừ" cho nút trừ số lượng
+  cartItem.querySelector(".header__cart-item-decrease").addEventListener("click", function() {
+    const quantityElem = cartItem.querySelector(".header__cart-item-quantity");
+    let quantity = parseInt(quantityElem.innerText);
+    if (quantity > 1) {
+      quantity--;
+      quantityElem.innerText = quantity;
+      updateCartTotal();
+    }
+  });
+
+  // Cập nhật số lượng sản phẩm trong biểu tượng giỏ hàng
+  updateCartNotice();
+
+  // Cập nhật lại tổng tiền giỏ hàng
+  updateCartTotal();
+}
+
+// Cập nhật số lượng sản phẩm trong giỏ hàng
+function updateCartNotice() {
+  const cartItems = document.querySelectorAll(".header__cart-item");
+  const cartNotice = document.querySelector(".header__cart-notice");
+  cartNotice.innerText = cartItems.length;  // Cập nhật số sản phẩm trong giỏ
+}
+
+function updateCartTotal() {
+  const cartItems = document.querySelectorAll(".header__cart-item");
+  let total = 0;
+
+  cartItems.forEach(item => {
+    const priceText = item.querySelector(".header__cart-item-price").innerText;  // Lấy giá sản phẩm
+    // Chuyển giá thành số nguyên, loại bỏ dấu phẩy phân tách hàng nghìn
+    const price = parseInt(priceText.replace(/[^0-9]/g, ''));  // Loại bỏ dấu phẩy và ký tự không phải số
+    const quantity = parseInt(item.querySelector(".header__cart-item-quantity").innerText);  // Lấy số lượng sản phẩm
+    total += price * quantity;  // Tính tổng tiền
+  });
+
+  // Cập nhật tổng tiền vào giao diện theo định dạng số có dấu phẩy phân tách hàng nghìn
+  cartTotal.innerText = `Tổng tiền: ${total.toLocaleString()}`;  // Giữ dấu phẩy phân cách hàng nghìn và thêm "VND"
+}
+
+
+
+// Lấy các phần tử
+const closeModalBtn = document.getElementById('close-modal'); // Nút đóng modal chung
+const closeTitleBtn = document.getElementById('close-title-btn'); // Nút đóng tiêu đề modal
+
+
+// Sự kiện đóng modal chung (Nút X trên góc)
+closeModalBtn.addEventListener('click', function() {
+    modal.style.display = 'none'; // Ẩn modal
+});
+
+// Sự kiện đóng modal khi bấm vào nút "X" trên tiêu đề
+closeTitleBtn.addEventListener('click', function() {
+    modal.style.display = 'none'; // Ẩn modal
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

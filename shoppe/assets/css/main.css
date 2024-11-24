@@ -881,12 +881,29 @@
     display: flex;
     justify-content: space-between;
 }
-
+/* 
 .header__cart-item-description {
     color: #757575;
     font-size: 1.2rem;
     font-weight: 300;
+} */
+
+
+.header__cart-total-wrap {
+    display: inline-flex;
 }
+
+.header__cart-total-wrap span {
+    font-size: 1.8rem;
+    text-align: center;
+    margin: 12px 6px 12px 12px;
+    line-height: 20px;
+}
+
+.header__cart-item-decrease {
+    margin-left: 73%;
+}
+
 
 .header__cart-item-remove {
     font-size: 1.4rem;
@@ -901,7 +918,7 @@
 
 .header__cart-view-cart {
     float: right;
-    margin: 0 12px 12px 0;
+    margin: 12px 12px 12px 100px;
 }
 
 .header__cart-view-cart:hover {
@@ -1516,10 +1533,10 @@
 .product-modal__content {
     background-color: white;
     padding: 20px;
-    width: 80%;
-    max-width: 65%;
+    width: 50%;
     border-radius: 10px;
     display: flex;
+    max-height: 30rem;
 }
 
 .close-modal {
@@ -1533,54 +1550,113 @@
 
 .product-modal__img {
     width: 50%;
+    border: 5px solid #9d6560;
 }
 
 .product-modal__img img {
-    max-width: 70%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .product-modal__details {
     margin-left: 20px;
-    width: 30%;
+    width: 46%;
 }
 .product-modal__details h2 {
-    font-size: 1.6rem;
+    font-size: 3rem;
+    line-height: 3rem;
 }
+
+/* CSS cho modal */
+.product-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Mờ nền */
+    display: none; /* Ẩn modal mặc định */
+    justify-content: center;
+    align-items: center;
+}
+
+/* CSS cho nội dung modal */
+.product-modal__content {
+    position: relative;
+    background: white;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Nút đóng modal chung (ở góc trên bên trái) */
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Nút "X" ở bên phải tiêu đề */
+.close-title-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
 
 .modal-price {
     font-size: 2rem;
     margin-top: 5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
 }
 
 .modal-price #modal-old-price {
     text-decoration: line-through;
-    font-size: 1.6rem;
+    font-size: 2rem;
     color: grey;
 }
 
 
 .modal-price #modal-current-price {
     color: var(--primary-color);
+    font-size: 3rem;
+    margin-left: 1rem;
 }
 
 .order-btn {
     background-color: var(--primary-color);
     color: var(--white-color);
     font-size: 2rem;
-    margin: 10px 10px;
-    padding-top: 10px;
     border: 3px solid var(--primary-color);
     border-radius: 10px;
     cursor: pointer;
+    width: 15rem;
 }
 
-
-
-
-
-
-
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+.blink {
+    animation: blink 0.5s infinite;
+    color: white;
+}
 
 
 
