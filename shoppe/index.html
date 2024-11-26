@@ -293,7 +293,7 @@
                                 <div class="header__cart-total-wrap">
                                     <span class="header__cart-total-left"></span>
                                     <span class="header__cart-total" id="cart-total-left"></span>
-                                    <a class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>
+                                    <a class="header__cart-buy btn btn--primary">Đặt Hàng</a>
                                 </div>
 
                             </div>
@@ -1283,20 +1283,22 @@
                                     <div class="product-modal__content">
                                         <!-- Nút X đóng modal chung -->
                                         <button class="close-modal" id="close-modal">X</button>
-                                        <div class="product-modal__img">
-                                            <img id="modal-img" src="" alt="">
-                                        </div>
-                                        <div class="product-modal__details">
-                                            <!-- Nút X đóng tiêu đề -->
-                                            <h2 id="modal-title">
-                                                Tên sản phẩm
-                                                <button class="close-title-btn" id="close-title-btn">X</button>
-                                            </h2>
-                                            <div class="modal-price">
-                                                <span id="modal-old-price"></span>
-                                                <span id="modal-current-price"></span>
+                                        <div class="modal-wraper">
+                                            <div class="product-modal__img">
+                                                <img id="modal-img" src="" alt="">
                                             </div>
-                                            <button class="order-btn" id="order-btn">Add to Cart</button>
+                                            <div class="product-modal__details">
+                                                <!-- Nút X đóng tiêu đề -->
+                                                <h2 id="modal-title">
+                                                    Tên sản phẩm
+                                                    <button class="close-title-btn" id="close-title-btn">X</button>
+                                                </h2>
+                                                <div class="modal-price">
+                                                    <span id="modal-old-price"></span>
+                                                    <span id="modal-current-price"></span>
+                                                </div>
+                                                <button class="order-btn" id="order-btn">Add to Cart</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1446,9 +1448,7 @@
             </div>
         </footer>
     </div>
-    <script src="./assets/script.js">
-
-    </script>
+    <script src="./assets/script.js"></script>
 </body>
 
 </html>
