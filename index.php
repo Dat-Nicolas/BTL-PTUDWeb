@@ -51,7 +51,7 @@ $result = $conn->query($sql);
             <?php while($row = $result->fetch_assoc()) { ?>
                 <tr>
                     <td><?php echo $row['name']; ?></td>
-                    <td><img src="<?php echo $row['image']; ?>" alt="product image" style="width: 100px; height: auto;"></td>
+                    <td> <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="product image" style="width: 100px; height: auto;"> </td>
                     <td><?php echo number_format($row['old_price'], 0, ',', '.'); ?>₫</td>
                     <td><?php echo number_format($row['current_price'], 0, ',', '.'); ?>₫</td>
                     <td><?php echo $row['sold']; ?></td>

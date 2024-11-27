@@ -29,7 +29,7 @@ if (isset($_GET['id'])) {
 // Cập nhật thông tin sản phẩm
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
-    $image = $_FILES['image']['name'] ? $_FILES['image']['name'] : $product['image']; // Nếu có ảnh mới thì sử dụng ảnh mới
+    $image = $product['image']; // Giữ ảnh cũ mặc định
     $old_price = $_POST['old_price'];
     $current_price = $_POST['current_price'];
     $sold = $_POST['sold'];
@@ -38,9 +38,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $discount = $_POST['discount'];
     $rating = $_POST['rating'];
 
-    // Xử lý ảnh
-    if ($_FILES['image']['tmp_name']) {
-        move_uploaded_file($_FILES['image']['tmp_name'], './assets/img/' . $image);
+    // Xử lý link ảnh
+    if (!empty($_POST['image_url'])) {
+        // Kiểm tra link ảnh
+        $image_url = filter_var($_POST['image_url'], FILTER_VALIDATE_URL);
+        if ($image_url === false) {
+            die("Link ảnh không hợp lệ.");
+        }
+        $image = $image_url;
     }
 
     // Cập nhật thông tin sản phẩm
@@ -59,13 +64,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("ssiiisssii", $name, $image, $old_price, $current_price, $sold, $brand, $origin, $discount, $rating, $id);
 
     if ($stmt->execute()) {
-        // Sau khi cập nhật thành công, quay lại trang quản lý sản phẩm
-        header('Location: index.php');
+        header('Location: index.php'); // Quay lại trang quản lý sản phẩm
         exit();
     } else {
         echo "Lỗi cập nhật sản phẩm.";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -78,13 +83,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <h1>Sửa Sản Phẩm</h1>
 
-    <form action="edit_product.php?id=<?= $product['id'] ?>" method="post" enctype="multipart/form-data">
+    <form action="edit_product.php?id=<?= $product['id'] ?>" method="post">
         <label for="name">Tên Sản Phẩm:</label>
-        <input type="text" id="name" name="name" value="<?= $product['name'] ?>" required><br>
+        <input type="text" id="name" name="name" value="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>" required><br>
 
-        <label for="image">Hình Ảnh:</label>
-        <input type="file" id="image" name="image"><br>
-        <img src="./assets/img/<?= $product['image'] ?>" alt="image" width="100"><br>
+        <label for="image_url">Link Hình Ảnh:</label>
+        <input type="text" id="image_url" name="image_url" value="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" required><br>
+
+        <!-- Hiển thị ảnh hiện tại -->
+        <?php if (!empty($product['image'])): ?>
+            <img src="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" alt="image" width="100"><br>
+        <?php endif; ?>
 
         <label for="old_price">Giá Cũ:</label>
         <input type="number" id="old_price" name="old_price" value="<?= $product['old_price'] ?>" required><br>
@@ -96,10 +105,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="number" id="sold" name="sold" value="<?= $product['sold'] ?>" required><br>
 
         <label for="brand">Thương Hiệu:</label>
-        <input type="text" id="brand" name="brand" value="<?= $product['brand'] ?>" required><br>
+        <input type="text" id="brand" name="brand" value="<?= htmlspecialchars($product['brand'], ENT_QUOTES, 'UTF-8') ?>" required><br>
 
         <label for="origin">Nguồn Gốc:</label>
-        <input type="text" id="origin" name="origin" value="<?= $product['origin'] ?>" required><br>
+        <input type="text" id="origin" name="origin" value="<?= htmlspecialchars($product['origin'], ENT_QUOTES, 'UTF-8') ?>" required><br>
 
         <label for="discount">Giảm Giá (%):</label>
         <input type="number" id="discount" name="discount" value="<?= $product['discount'] ?>" required><br>
