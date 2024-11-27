@@ -11,46 +11,61 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Lấy id sản phẩm từ URL
-$product_id = $_GET['id'];
-
-// Lấy thông tin sản phẩm từ cơ sở dữ liệu
-$sql = "SELECT * FROM products WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $product_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
+// Kiểm tra xem có id sản phẩm nào trong URL không
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    
+    // Lấy thông tin sản phẩm từ cơ sở dữ liệu
+    $sql = "SELECT * FROM products WHERE id = $id";
+    $result = $conn->query($sql);
     $product = $result->fetch_assoc();
-} else {
-    echo "Sản phẩm không tồn tại.";
-    exit;
-}
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Lấy dữ liệu từ form
-    $name = $_POST['name'];
-    $category = $_POST['category'];
-    $price = $_POST['price'];
-    $quantity = $_POST['quantity'];
-    $description = $_POST['description'];
-
-    // Cập nhật thông tin sản phẩm
-    $sql_update = "UPDATE products SET name = ?, category = ?, price = ?, quantity = ?, description = ? WHERE id = ?";
-    $stmt_update = $conn->prepare($sql_update);
-    $stmt_update->bind_param("ssdiis", $name, $category, $price, $quantity, $description, $product_id);
-
-    if ($stmt_update->execute()) {
-        echo "Cập nhật sản phẩm thành công.";
-        header("Location: index.php"); // Quay lại trang danh sách sản phẩm sau khi sửa
-        exit;
-    } else {
-        echo "Lỗi: " . $stmt_update->error;
+    if (!$product) {
+        echo "Sản phẩm không tồn tại.";
+        exit();
     }
 }
 
-$conn->close();
+// Cập nhật thông tin sản phẩm
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = $_POST['name'];
+    $image = $_FILES['image']['name'] ? $_FILES['image']['name'] : $product['image']; // Nếu có ảnh mới thì sử dụng ảnh mới
+    $old_price = $_POST['old_price'];
+    $current_price = $_POST['current_price'];
+    $sold = $_POST['sold'];
+    $brand = $_POST['brand'];
+    $origin = $_POST['origin'];
+    $discount = $_POST['discount'];
+    $rating = $_POST['rating'];
+
+    // Xử lý ảnh
+    if ($_FILES['image']['tmp_name']) {
+        move_uploaded_file($_FILES['image']['tmp_name'], './assets/img/' . $image);
+    }
+
+    // Cập nhật thông tin sản phẩm
+    $sql_update = "UPDATE products SET 
+                   name = ?, 
+                   image = ?, 
+                   old_price = ?, 
+                   current_price = ?, 
+                   sold = ?, 
+                   brand = ?, 
+                   origin = ?, 
+                   discount = ?, 
+                   rating = ? 
+                   WHERE id = ?";
+    $stmt = $conn->prepare($sql_update);
+    $stmt->bind_param("ssiiisssii", $name, $image, $old_price, $current_price, $sold, $brand, $origin, $discount, $rating, $id);
+
+    if ($stmt->execute()) {
+        // Sau khi cập nhật thành công, quay lại trang quản lý sản phẩm
+        header('Location: index.php');
+        exit();
+    } else {
+        echo "Lỗi cập nhật sản phẩm.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -59,27 +74,40 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sửa Sản Phẩm</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Sửa Sản Phẩm</h2>
-    <form action="edit_product.php?id=<?php echo $product_id; ?>" method="POST">
+    <h1>Sửa Sản Phẩm</h1>
+
+    <form action="edit_product.php?id=<?= $product['id'] ?>" method="post" enctype="multipart/form-data">
         <label for="name">Tên Sản Phẩm:</label>
-        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($product['name']); ?>" required><br><br>
+        <input type="text" id="name" name="name" value="<?= $product['name'] ?>" required><br>
 
-        <label for="category">Danh Mục:</label>
-        <input type="text" id="category" name="category" value="<?php echo htmlspecialchars($product['category']); ?>" required><br><br>
+        <label for="image">Hình Ảnh:</label>
+        <input type="file" id="image" name="image"><br>
+        <img src="./assets/img/<?= $product['image'] ?>" alt="image" width="100"><br>
 
-        <label for="price">Giá:</label>
-        <input type="number" id="price" name="price" value="<?php echo $product['price']; ?>" required><br><br>
+        <label for="old_price">Giá Cũ:</label>
+        <input type="number" id="old_price" name="old_price" value="<?= $product['old_price'] ?>" required><br>
 
-        <label for="quantity">Số Lượng:</label>
-        <input type="number" id="quantity" name="quantity" value="<?php echo $product['quantity']; ?>" required><br><br>
+        <label for="current_price">Giá Hiện Tại:</label>
+        <input type="number" id="current_price" name="current_price" value="<?= $product['current_price'] ?>" required><br>
 
-        <label for="description">Mô Tả:</label>
-        <textarea id="description" name="description" rows="4" required><?php echo htmlspecialchars($product['description']); ?></textarea><br><br>
+        <label for="sold">Số Lượng Đã Bán:</label>
+        <input type="number" id="sold" name="sold" value="<?= $product['sold'] ?>" required><br>
 
-        <input type="submit" value="Cập nhật sản phẩm">
+        <label for="brand">Thương Hiệu:</label>
+        <input type="text" id="brand" name="brand" value="<?= $product['brand'] ?>" required><br>
+
+        <label for="origin">Nguồn Gốc:</label>
+        <input type="text" id="origin" name="origin" value="<?= $product['origin'] ?>" required><br>
+
+        <label for="discount">Giảm Giá (%):</label>
+        <input type="number" id="discount" name="discount" value="<?= $product['discount'] ?>" required><br>
+
+        <label for="rating">Đánh Giá:</label>
+        <input type="number" id="rating" name="rating" value="<?= $product['rating'] ?>" required><br>
+
+        <button type="submit">Cập Nhật</button>
     </form>
 </body>
 </html>

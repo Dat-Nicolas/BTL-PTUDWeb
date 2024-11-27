@@ -16,11 +16,14 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style2.css">
     <title>Quản Lý Đơn Hàng</title>
 </head>
 <body>
+
     <h1>Danh Sách Đơn Hàng</h1>
-    <table border="1">
+
+    <table>
         <thead>
             <tr>
                 <th>Mã Đơn Hàng</th>
@@ -36,17 +39,18 @@ $result = $conn->query($sql);
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['customer_name']; ?></td>
-                    <td><?php echo number_format($row['total'], 2); ?></td>
+                    <td><?php echo number_format($row['total'], 2); ?> VND</td>
                     <td><?php echo $row['status']; ?></td>
-                    <td><?php echo $row['created_at']; ?></td>
-                    <td>
-                        <a href="edit_order.php?id=<?php echo $row['id']; ?>">Sửa</a> |
-                        <a href="delete_order.php?id=<?php echo $row['id']; ?>">Xóa</a>
+                    <td><?php echo date('d-m-Y H:i:s', strtotime($row['created_at'])); ?></td>
+                    <td class="action-buttons">
+                        <a href="edit_order.php?id=<?php echo $row['id']; ?>" class="edit">Sửa</a>
+                        <a href="delete_order.php?id=<?php echo $row['id']; ?>" class="delete">Xóa</a>
                     </td>
                 </tr>
             <?php } ?>
         </tbody>
     </table>
+
 </body>
 </html>
 

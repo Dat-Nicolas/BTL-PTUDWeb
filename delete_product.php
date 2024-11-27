@@ -34,7 +34,6 @@ if (isset($product_id)) {
         $conn->query($sql_update_ids);
 
         // Bước 3: Cập nhật lại AUTO_INCREMENT (đảm bảo ID tiếp theo sẽ đúng)
-        // Cập nhật AUTO_INCREMENT để nó tiếp tục từ ID lớn nhất hiện tại.
         $reset_auto_increment = "ALTER TABLE products AUTO_INCREMENT = 1";
         $conn->query($reset_auto_increment);
 
@@ -55,6 +54,6 @@ if (isset($product_id)) {
 $conn->close();
 
 // Chuyển hướng về trang danh sách sản phẩm sau 3 giây
-header("Refresh: 3; url=index.php");
+header("Refresh: 1; url=index.php");
 exit;
 ?>
