@@ -1,3 +1,4 @@
 .list-view{
-    display: flex
+    display: flex;
+    gap: 5px;
 }
