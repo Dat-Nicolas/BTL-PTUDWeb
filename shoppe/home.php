@@ -28,7 +28,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="./assets/css/Grid.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
     <link rel="stylesheet" href="./assets/css/list-product.css">
-    
+
     <!-- <link rel="stylesheet" href="./css/reset.css"> -->
     <link rel="stylesheet" href=".assets/fonts/fontawesome-free-6.6.0-web/css/fontawesome.min.css">
     <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" /> -->
@@ -430,48 +430,51 @@ $result = $conn->query($sql);
                         <!-- home-product -->
                         <div class="home-product">
                             <div class="grid__row" id="list-products">
-                                <div id="list-view" style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                <div id="list-view">
                                     <?php while ($row = $result->fetch_assoc()) { ?>
                                         <div onclick='showProductModal(<?php echo json_encode($row); ?>)' 
                                             style="cursor: pointer; width: calc(100% / 4 ); border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                                             <div style="position: relative;">
-                                                <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="product image" 
-                                                    style="width: 100%; height: 180px; object-fit: cover;">
-                                                <div style="position: absolute; top: 10px; left: 10px; background: red; color: white; padding: 5px; border-radius: 5px; font-size: 12px;">Yêu thích</div>
-                                                <div style="position: absolute; top: 10px; right: 10px; background: orange; color: white; padding: 5px; border-radius: 5px; font-size: 12px;"><?php echo $row['discount']; ?>% Giảm</div>
+                                                <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="product image">
+                                                <div class="favorite-badge">Yêu thích</div>
+                                                <div class="discount-badge"><?php echo $row['discount']; ?>% Giảm</div>
                                             </div>
-                                            <div style="padding: 10px;">
-                                                <h3 style="font-size: 16px; margin: 0; color: #333;"><?php echo $row['name']; ?></h3>
-                                                <p style="font-size: 14px; color: gray; margin: 5px 0;"><?php echo $row['brand']; ?> - <?php echo $row['origin']; ?></p>
-                                                <p style="margin: 5px 0; color: #999; text-decoration: line-through;"><?php echo number_format($row['old_price'], 0, ',', '.'); ?> đ</p>
-                                                <p style="margin: 5px 0; font-size: 18px; color: red; font-weight: bold;"><?php echo number_format($row['current_price'], 0, ',', '.'); ?> đ</p>
-                                                <p style="margin: 5px 0; color: #555;"><?php echo $row['sold']; ?> đã bán</p>
-                                                <div style="color: gold;">
-                                                    <?php for ($i = 0; $i < $row['rating']; $i++) { echo '<i class="fas fa-star"></i>'; } ?>
+                                            <div class="info">
+                                                <h3><?php echo $row['name']; ?></h3>
+                                                <p><?php echo $row['brand']; ?> - <?php echo $row['origin']; ?></p>
+                                                <p class="old-price"><?php echo number_format($row['old_price'], 0, ',', '.'); ?> đ</p>
+                                                <p class="current-price"><?php echo number_format($row['current_price'], 0, ',', '.'); ?> đ</p>
+                                                <p class="sold"><?php echo $row['sold']; ?> đã bán</p>
+                                                <div class="rating">
+                                                    <?php for ($i = 0; $i < $row['rating']; $i++) {
+                                                        echo '<i class="fas fa-star"></i>';
+                                                    } ?>
                                                 </div>
                                             </div>
                                         </div>
                                     <?php } ?>
                                 </div>
                             </div>
-
-                            <!-- Modal hiển thị thông tin chi tiết sản phẩm -->
-                            <div id="product-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;">
-                                <div style="width: 400px; margin: 100px auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
-                                    <div id="modal-content" style="padding: 20px;">
-                                        <!-- Nội dung chi tiết sản phẩm sẽ được thêm vào đây -->
-                                    </div>
-                                    <button id="close-modal" style="display: block; margin: 0 auto 20px; padding: 10px 20px; background: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Đóng</button>
-                                </div>
-                            </div>
                         </div>
 
-                        <script>
-                            function showProductModal(product) {
-                                const modal = document.getElementById('product-modal');
-                                const modalContent = document.getElementById('modal-content');
 
-                                modalContent.innerHTML = `
+                        <!-- Modal hiển thị thông tin chi tiết sản phẩm -->
+                        <div id="product-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;">
+                            <div style="width: 400px; margin: 100px auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+                                <div id="modal-content" style="padding: 20px;">
+                                    <!-- Nội dung chi tiết sản phẩm sẽ được thêm vào đây -->
+                                </div>
+                                <button id="close-modal" style="display: block; margin: 0 auto 20px; padding: 10px 20px; background: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        function showProductModal(product) {
+                            const modal = document.getElementById('product-modal');
+                            const modalContent = document.getElementById('modal-content');
+
+                            modalContent.innerHTML = `
                                     <img src="${product.image}" alt="product image" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid #ddd;">
                                     <h2 style="margin: 10px 0;">${product.name}</h2>
                                     <p>Thương hiệu: ${product.brand}</p>
@@ -482,194 +485,194 @@ $result = $conn->query($sql);
                                     <p>Đánh giá: ${'⭐'.repeat(product.rating)}</p>
                                 `;
 
-                                modal.style.display = 'block';
+                            modal.style.display = 'block';
+                        }
+
+                        document.getElementById('close-modal').addEventListener('click', () => {
+                            document.getElementById('product-modal').style.display = 'none';
+                        });
+
+                        // Đóng modal khi nhấn ra ngoài
+                        window.addEventListener('click', (event) => {
+                            const modal = document.getElementById('product-modal');
+                            if (event.target === modal) {
+                                modal.style.display = 'none';
                             }
-
-                            document.getElementById('close-modal').addEventListener('click', () => {
-                                document.getElementById('product-modal').style.display = 'none';
-                            });
-
-                            // Đóng modal khi nhấn ra ngoài
-                            window.addEventListener('click', (event) => {
-                                const modal = document.getElementById('product-modal');
-                                if (event.target === modal) {
-                                    modal.style.display = 'none';
-                                }
-                            });
-                        </script>
+                        });
+                    </script>
 
 
-                                
 
-                                <!-- Thông tin sản phẩm -->
-                                <div class="product-modal" id="product-modal">
-                                    <div class="product-modal__content">
-                                        <!-- Nút X đóng modal chung -->
-                                        <button class="close-modal" id="close-modal">X</button>
-                                        <div class="modal-wraper">
-                                            <div class="product-modal__img">
-                                                <img id="modal-img" src="" alt="">
-                                            </div>
-                                            <div class="product-modal__details">
-                                                <!-- Nút X đóng tiêu đề -->
-                                                <h2 id="modal-title">
-                                                    Tên sản phẩm
-                                                    <button class="close-title-btn" id="close-title-btn">X</button>
-                                                </h2>
-                                                <div class="modal-price">
-                                                    <span id="modal-old-price"></span>
-                                                    <span id="modal-current-price"></span>
-                                                </div>
-                                                <button class="order-btn" id="order-btn">Add to Cart</button>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                    <!-- Thông tin sản phẩm -->
+                    <div class="product-modal" id="product-modal">
+                        <div class="product-modal__content">
+                            <!-- Nút X đóng modal chung -->
+                            <button class="close-modal" id="close-modal">X</button>
+                            <div class="modal-wraper">
+                                <div class="product-modal__img">
+                                    <img id="modal-img" src="" alt="">
                                 </div>
-
-
+                                <div class="product-modal__details">
+                                    <!-- Nút X đóng tiêu đề -->
+                                    <h2 id="modal-title">
+                                        Tên sản phẩm
+                                        <button class="close-title-btn" id="close-title-btn">X</button>
+                                    </h2>
+                                    <div class="modal-price">
+                                        <span id="modal-old-price"></span>
+                                        <span id="modal-current-price"></span>
+                                    </div>
+                                    <button class="order-btn" id="order-btn">Add to Cart</button>
+                                </div>
                             </div>
                         </div>
-                        <!-- pagination -->
-                        <div class="pagination home-product__pagination">
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">
-                                    <i class="pagination-item__icon fas fa-angle-left"></i>
-                                </a>
-                            </li>
-
-                            <li class="pagination-item pagination-item--active">
-                                <a href="" class="pagination-item__link">1</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">2</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">3</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">4</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">5</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">6</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">...</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">14</a>
-                            </li>
-
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">
-                                    <i class="pagination-item__icon fas fa-angle-right"></i>
-                                </a>
-                            </li>
-                        </div>
                     </div>
+
+
                 </div>
             </div>
+            <!-- pagination -->
+            <div class="pagination home-product__pagination">
+                <li class="pagination-item">
+                    <a href="" class="pagination-item__link">
+                        <i class="pagination-item__icon fas fa-angle-left"></i>
+                    </a>
+                </li>
 
+                <li class="pagination-item pagination-item--active">
+                    <a href="" class="pagination-item__link">1</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="" class="pagination-item__link">2</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="" class="pagination-item__link">3</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="" class="pagination-item__link">4</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="" class="pagination-item__link">5</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="" class="pagination-item__link">6</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="" class="pagination-item__link">...</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="" class="pagination-item__link">14</a>
+                </li>
 
+                <li class="pagination-item">
+                    <a href="" class="pagination-item__link">
+                        <i class="pagination-item__icon fas fa-angle-right"></i>
+                    </a>
+                </li>
+            </div>
         </div>
-        <!-- footer -->
-        <footer class="footer">
-            <div class="grid wide footer__content">
-                <div class="grid__row">
-                    <div class="col l-2-4 m-4 c-6">
-                        <h3 class="footer__heading">Chăm sóc khách hàng</h3>
-                        <ul class="footer-list">
-                            <li class="footer-item">
-                                <a href="https://help.shopee.vn/portal/4" class="footer-item__link">Trung tâm trợ
-                                    giúp</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://shopee.vn/blog/" class="footer-item__link">Shopee Blog</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://help.shopee.vn/portal/4/article/79180-[Th%c3%a0nh-vi%c3%aan-m%e1%bb%9bi]-L%c3%a0m-sao-%c4%91%e1%bb%83-mua-h%c3%a0ng-%2F-%c4%91%e1%ba%b7t-h%c3%a0ng-tr%c3%aan-%e1%bb%a9ng-d%e1%bb%a5ng-Shopee%3F"
-                                    class="footer-item__link">Hướng dẫn mua hàng</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col l-2-4 m-4 c-6">
-                        <h3 class="footer__heading">Giới thiệu</h3>
-                        <ul class="footer-list">
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://careers.shopee.vn/about" class="footer-item__link">Giới thiệu</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://careers.shopee.vn/jobs" class="footer-item__link">Tuyển dụng</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://help.shopee.vn/portal/4/article/77242" class="footer-item__link">Điều
-                                    khoản</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col l-2-4 m-4 c-6">
-                        <h3 class="footer__heading">Thanh Toán</h3>
-                        <ul class="footer-list">
-                            <li class="footer-item">
-                                <a href="https://www.mbbank.com.vn/registration" class="footer-item__link">Mb Bank</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://techcombank.com/khach-hang-ca-nhan/chi-tieu/tai-khoan"
-                                    class="footer-item__link">Techcom Bank</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://ebank.bidv.com.vn/DKNHDT/" class="footer-item__link">Bidv</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col l-2-4 m-4 c-6">
-                        <h3 class="footer__heading">Theo dõi</h3>
-                        <ul class="footer-list">
-                            <li class="footer-item">
-                                <a href="https://www.facebook.com/ShopeeVN" class="footer-item__link">
-                                    <i class="footer-item__icon fab fa-facebook"></i>
-                                    Facebook</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://www.instagram.com/Shopee_VN" class="footer-item__link">
-                                    <i class="footer-item__icon fab fa-instagram"></i>
-                                    Instagram</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://www.linkedin.com/" class="footer-item__link">
-                                    <i class="footer-item__icon fab fa-linkedin"></i>
-                                    Linkedin</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col l-2-4 m-8 c-12">
-                        <h3 class="footer__heading">Vào cửa hàng trên ứng dụng</h3>
-                        <div class="footer__download">
-                            <img src="./assets/img/img1.png" alt="Download QR" class="footer__download-qr">
-                            <div class="footer__download-apps">
-                                <a href="https://play.google.com/store/search?q=shopee&c=apps&hl=en-US"
-                                    class="footer__download-app-link">
-                                    <img src="./assets/img/img3.png" alt="Google play" class="footer__download-app-img">
-                                </a>
-                                <a href="https://apps.apple.com/vn/app/shopee-mua-s%E1%BA%AFm-online/id959841449"
-                                    class="footer__download-app-link">
-                                    <img src="./assets/img/img2.png" alt="App store" class="footer__download-app-img">
-                                </a>
-                            </div>
+    </div>
+    </div>
+
+
+    </div>
+    <!-- footer -->
+    <footer class="footer">
+        <div class="grid wide footer__content">
+            <div class="grid__row">
+                <div class="col l-2-4 m-4 c-6">
+                    <h3 class="footer__heading">Chăm sóc khách hàng</h3>
+                    <ul class="footer-list">
+                        <li class="footer-item">
+                            <a href="https://help.shopee.vn/portal/4" class="footer-item__link">Trung tâm trợ
+                                giúp</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://shopee.vn/blog/" class="footer-item__link">Shopee Blog</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://help.shopee.vn/portal/4/article/79180-[Th%c3%a0nh-vi%c3%aan-m%e1%bb%9bi]-L%c3%a0m-sao-%c4%91%e1%bb%83-mua-h%c3%a0ng-%2F-%c4%91%e1%ba%b7t-h%c3%a0ng-tr%c3%aan-%e1%bb%a9ng-d%e1%bb%a5ng-Shopee%3F"
+                                class="footer-item__link">Hướng dẫn mua hàng</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l-2-4 m-4 c-6">
+                    <h3 class="footer__heading">Giới thiệu</h3>
+                    <ul class="footer-list">
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://careers.shopee.vn/about" class="footer-item__link">Giới thiệu</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://careers.shopee.vn/jobs" class="footer-item__link">Tuyển dụng</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://help.shopee.vn/portal/4/article/77242" class="footer-item__link">Điều
+                                khoản</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l-2-4 m-4 c-6">
+                    <h3 class="footer__heading">Thanh Toán</h3>
+                    <ul class="footer-list">
+                        <li class="footer-item">
+                            <a href="https://www.mbbank.com.vn/registration" class="footer-item__link">Mb Bank</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://techcombank.com/khach-hang-ca-nhan/chi-tieu/tai-khoan"
+                                class="footer-item__link">Techcom Bank</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://ebank.bidv.com.vn/DKNHDT/" class="footer-item__link">Bidv</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l-2-4 m-4 c-6">
+                    <h3 class="footer__heading">Theo dõi</h3>
+                    <ul class="footer-list">
+                        <li class="footer-item">
+                            <a href="https://www.facebook.com/ShopeeVN" class="footer-item__link">
+                                <i class="footer-item__icon fab fa-facebook"></i>
+                                Facebook</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://www.instagram.com/Shopee_VN" class="footer-item__link">
+                                <i class="footer-item__icon fab fa-instagram"></i>
+                                Instagram</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://www.linkedin.com/" class="footer-item__link">
+                                <i class="footer-item__icon fab fa-linkedin"></i>
+                                Linkedin</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l-2-4 m-8 c-12">
+                    <h3 class="footer__heading">Vào cửa hàng trên ứng dụng</h3>
+                    <div class="footer__download">
+                        <img src="./assets/img/img1.png" alt="Download QR" class="footer__download-qr">
+                        <div class="footer__download-apps">
+                            <a href="https://play.google.com/store/search?q=shopee&c=apps&hl=en-US"
+                                class="footer__download-app-link">
+                                <img src="./assets/img/img3.png" alt="Google play" class="footer__download-app-img">
+                            </a>
+                            <a href="https://apps.apple.com/vn/app/shopee-mua-s%E1%BA%AFm-online/id959841449"
+                                class="footer__download-app-link">
+                                <img src="./assets/img/img2.png" alt="App store" class="footer__download-app-img">
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="footer__bottom">
-                <div class="grid wide ">
-                    <p class="footer__text">2024 - Bản quyền thuộc về Công ty My Copany</p>
-                </div>
+        <div class="footer__bottom">
+            <div class="grid wide ">
+                <p class="footer__text">2024 - Bản quyền thuộc về Công ty My Copany</p>
             </div>
-        </footer>
+        </div>
+    </footer>
     </div>
     <script src="./assets/script.js"></script>
 </body>
