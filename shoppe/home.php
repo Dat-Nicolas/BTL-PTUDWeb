@@ -28,6 +28,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="./assets/css/Grid.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
     <link rel="stylesheet" href="./assets/css/list-product.css">
+    
     <!-- <link rel="stylesheet" href="./css/reset.css"> -->
     <link rel="stylesheet" href=".assets/fonts/fontawesome-free-6.6.0-web/css/fontawesome.min.css">
     <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" /> -->
@@ -429,31 +430,74 @@ $result = $conn->query($sql);
                         <!-- home-product -->
                         <div class="home-product">
                             <div class="grid__row" id="list-products">
-                            <div id="list-view" style="display: flex; flex-wrap: wrap; gap: 20px;">
-                            <?php while ($row = $result->fetch_assoc()) { ?>
-                                <div style="width: 250px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-                                    <div style="position: relative;">
-                                        <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="product image" style="width: 100%; height: 180px; object-fit: cover;">
-                                        <div style="position: absolute; top: 10px; left: 10px; background: red; color: white; padding: 5px; border-radius: 5px; font-size: 12px;">Yêu thích</div>
-                                        <div style="position: absolute; top: 10px; right: 10px; background: orange; color: white; padding: 5px; border-radius: 5px; font-size: 12px;"><?php echo $row['discount']; ?>% Giảm</div>
-                                    </div>
-                                    <div style="padding: 10px;">
-                                        <h3 style="font-size: 16px; margin: 0; color: #333;"><?php echo $row['name']; ?></h3>
-                                        <p style="font-size: 14px; color: gray; margin: 5px 0;"><?php echo $row['brand']; ?> - <?php echo $row['origin']; ?></p>
-                                        <p style="margin: 5px 0; color: #999; text-decoration: line-through;"><?php echo number_format($row['old_price'], 0, ',', '.'); ?> đ</p>
-                                        <p style="margin: 5px 0; font-size: 18px; color: red; font-weight: bold;"><?php echo number_format($row['current_price'], 0, ',', '.'); ?> đ</p>
-                                        <p style="margin: 5px 0; color: #555;"><?php echo $row['sold']; ?> đã bán</p>
-                                        <div style="color: gold;">
-                                            <?php
-                                            for ($i = 0; $i < $row['rating']; $i++) {
-                                                echo '<i class="fas fa-star"></i>';
-                                            }
-                                            ?>
+                                <div id="list-view" style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                    <?php while ($row = $result->fetch_assoc()) { ?>
+                                        <div onclick='showProductModal(<?php echo json_encode($row); ?>)' 
+                                            style="cursor: pointer; width: 250px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                                            <div style="position: relative;">
+                                                <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="product image" 
+                                                    style="width: 100%; height: 180px; object-fit: cover;">
+                                                <div style="position: absolute; top: 10px; left: 10px; background: red; color: white; padding: 5px; border-radius: 5px; font-size: 12px;">Yêu thích</div>
+                                                <div style="position: absolute; top: 10px; right: 10px; background: orange; color: white; padding: 5px; border-radius: 5px; font-size: 12px;"><?php echo $row['discount']; ?>% Giảm</div>
+                                            </div>
+                                            <div style="padding: 10px;">
+                                                <h3 style="font-size: 16px; margin: 0; color: #333;"><?php echo $row['name']; ?></h3>
+                                                <p style="font-size: 14px; color: gray; margin: 5px 0;"><?php echo $row['brand']; ?> - <?php echo $row['origin']; ?></p>
+                                                <p style="margin: 5px 0; color: #999; text-decoration: line-through;"><?php echo number_format($row['old_price'], 0, ',', '.'); ?> đ</p>
+                                                <p style="margin: 5px 0; font-size: 18px; color: red; font-weight: bold;"><?php echo number_format($row['current_price'], 0, ',', '.'); ?> đ</p>
+                                                <p style="margin: 5px 0; color: #555;"><?php echo $row['sold']; ?> đã bán</p>
+                                                <div style="color: gold;">
+                                                    <?php for ($i = 0; $i < $row['rating']; $i++) { echo '<i class="fas fa-star"></i>'; } ?>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    <?php } ?>
                                 </div>
-                            <?php } ?>
+                            </div>
+
+                            <!-- Modal hiển thị thông tin chi tiết sản phẩm -->
+                            <div id="product-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;">
+                                <div style="width: 400px; margin: 100px auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+                                    <div id="modal-content" style="padding: 20px;">
+                                        <!-- Nội dung chi tiết sản phẩm sẽ được thêm vào đây -->
+                                    </div>
+                                    <button id="close-modal" style="display: block; margin: 0 auto 20px; padding: 10px 20px; background: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Đóng</button>
+                                </div>
+                            </div>
                         </div>
+
+                        <script>
+                            function showProductModal(product) {
+                                const modal = document.getElementById('product-modal');
+                                const modalContent = document.getElementById('modal-content');
+
+                                modalContent.innerHTML = `
+                                    <img src="${product.image}" alt="product image" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid #ddd;">
+                                    <h2 style="margin: 10px 0;">${product.name}</h2>
+                                    <p>Thương hiệu: ${product.brand}</p>
+                                    <p>Xuất xứ: ${product.origin}</p>
+                                    <p>Giá cũ: <span style="text-decoration: line-through; color: gray;">${parseInt(product.old_price).toLocaleString()} đ</span></p>
+                                    <p>Giá hiện tại: <span style="color: red; font-size: 20px;">${parseInt(product.current_price).toLocaleString()} đ</span></p>
+                                    <p>Đã bán: ${product.sold}</p>
+                                    <p>Đánh giá: ${'⭐'.repeat(product.rating)}</p>
+                                `;
+
+                                modal.style.display = 'block';
+                            }
+
+                            document.getElementById('close-modal').addEventListener('click', () => {
+                                document.getElementById('product-modal').style.display = 'none';
+                            });
+
+                            // Đóng modal khi nhấn ra ngoài
+                            window.addEventListener('click', (event) => {
+                                const modal = document.getElementById('product-modal');
+                                if (event.target === modal) {
+                                    modal.style.display = 'none';
+                                }
+                            });
+                        </script>
+
 
                                 
 
