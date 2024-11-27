@@ -433,7 +433,7 @@ $result = $conn->query($sql);
                                 <div id="list-view" style="display: flex; flex-wrap: wrap; gap: 20px;">
                                     <?php while ($row = $result->fetch_assoc()) { ?>
                                         <div onclick='showProductModal(<?php echo json_encode($row); ?>)' 
-                                            style="cursor: pointer; width: 250px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                                            style="cursor: pointer; width: calc(100% / 4 ); border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                                             <div style="position: relative;">
                                                 <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="product image" 
                                                     style="width: 100%; height: 180px; object-fit: cover;">
