@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="image_url">Link Hình Ảnh:</label>
             <input type="text" id="image_url" name="image_url" value="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" required><br>
             <?php if (!empty($product['image'])): ?>
-                <img src="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" alt="image" width="100"><br>
+                <img src="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" alt="image" width="100" ><br>
             <?php endif; ?>
         </div>
 
