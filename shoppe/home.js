@@ -4,10 +4,3 @@ document.getElementById('close-button').addEventListener('click', function () {
 });
 
 
-document.getElementById('add-to-cart').addEventListener('click', function () {
-}
-    function addToCart(name, price, image, quantity) {
-        document.getElementById('product-modal').style.display = 'none';  // Ẩn modal
-    });
-
-

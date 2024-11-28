@@ -29,12 +29,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Kiểm tra dữ liệu
     if ($product_id > 0) {
-        // Thêm sản phẩm vào bảng `cart`
-        $sql = "INSERT INTO cart (product_id, quantity) VALUES ($product_id, 1)";
-        if ($conn->query($sql) === TRUE) {
-            echo json_encode(['status' => 'success', 'message' => 'Sản phẩm đã được thêm vào giỏ hàng.']);
+        // Kiểm tra xem sản phẩm đã tồn tại trong `cart`
+        $checkSQL = "SELECT * FROM cart WHERE product_id = $product_id";
+        $result = $conn->query($checkSQL);
+
+        if ($result->num_rows > 0) {
+            // Nếu tồn tại, tăng số lượng
+            $updateSQL = "UPDATE cart SET quantity = quantity + 1 WHERE product_id = $product_id";
+            if ($conn->query($updateSQL) === TRUE) {
+                echo json_encode(['status' => 'success', 'message' => 'Đã tăng số lượng sản phẩm trong giỏ hàng.']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Cập nhật số lượng thất bại: ' . $conn->error]);
+            }
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Thêm sản phẩm thất bại: ' . $conn->error]);
+            // Nếu chưa tồn tại, thêm sản phẩm mới
+            $insertSQL = "INSERT INTO cart (product_id, quantity) VALUES ($product_id, 1)";
+            if ($conn->query($insertSQL) === TRUE) {
+                echo json_encode(['status' => 'success', 'message' => 'Sản phẩm đã được thêm vào giỏ hàng.']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Thêm sản phẩm thất bại: ' . $conn->error]);
+            }
         }
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Dữ liệu không hợp lệ.']);
