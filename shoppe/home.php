@@ -27,7 +27,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/Grid.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
-    <link rel="stylesheet" href="./assets/css/list-product.css">
+    <link rel="stylesheet" href=".shoppe/assets/css/list-product.css">
     
     <!-- <link rel="stylesheet" href="./css/reset.css"> -->
     <link rel="stylesheet" href=".assets/fonts/fontawesome-free-6.6.0-web/css/fontawesome.min.css">
@@ -122,7 +122,7 @@ $result = $conn->query($sql);
                                         <a href="">Địa chỉ của tôi </a>
                                     </li>
                                     <li class="header__navbar-user-item">
-                                        <a href="">Đơn mua</a>
+                                        <a href="">Lịch sử đơn hàng</a>
                                     </li>
                                     <li class="header__navbar-user-item header__navbar-user-item--separate">
                                         <a href="">Đăng xuất</a>
@@ -432,8 +432,8 @@ $result = $conn->query($sql);
                             <div class="grid__row" id="list-products">
                                 <div id="list-view" style="display: flex; flex-wrap: wrap; gap: 20px;">
                                     <?php while ($row = $result->fetch_assoc()) { ?>
-                                        <div onclick='showProductModal(<?php echo json_encode($row); ?>)' 
-                                            style="cursor: pointer; width: 250px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                                        <div id="product" onclick='showProductModal(<?php echo json_encode($row); ?>)' 
+                                            style="cursor: pointer; width: 230px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-top: 10px;">
                                             <div style="position: relative;">
                                                 <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="product image" 
                                                     style="width: 100%; height: 180px; object-fit: cover;">
@@ -461,6 +461,7 @@ $result = $conn->query($sql);
                                     <div id="modal-content" style="padding: 20px;">
                                         <!-- Nội dung chi tiết sản phẩm sẽ được thêm vào đây -->
                                     </div>
+                                    
                                     <button id="close-modal" style="display: block; margin: 0 auto 20px; padding: 10px 20px; background: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Đóng</button>
                                 </div>
                             </div>
