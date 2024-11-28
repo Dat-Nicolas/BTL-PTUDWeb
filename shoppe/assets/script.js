@@ -411,4 +411,6 @@ document.querySelector(".header__cart-buy").addEventListener("click", () => {
     // Nếu người dùng không xác nhận
     showToastMessage("Đặt hàng đã bị hủy.");
   }
+
+ 
 });

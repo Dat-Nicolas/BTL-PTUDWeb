@@ -96,18 +96,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-edit">
         <h1>Sửa Sản Phẩm</h1>
 
+<<<<<<< HEAD
     <form action="edit_product.php?id=<?= $product['id'] ?>" method="post" class="form-edit__title">
         <div class="form-edit__info">
             <label for="name">Tên Sản Phẩm:</label>
             <input type="text" id="name" name="name" value="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>" required><br>
-    
-            <label for="image_url">Link Hình Ảnh:</label>
-            <input type="text" id="image_url" name="image_url" value="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" required><br>
-            <?php if (!empty($product['image'])): ?>
-                <img src="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" alt="image" width="100" ><br>
-            <?php endif; ?>
-        </div>
+=======
+        <form action="edit_product.php?id=<?= $product['id'] ?>" method="post" class="form-edit__title">
+            <div class="form-edit__info">
+                <label for="name">Tên Sản Phẩm:</label>
+                <input type="text" id="name" name="name" value="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>" required><br>
 
+                <label for="image_url">Link Hình Ảnh:</label>
+                <input type="text" id="image_url" name="image_url" value="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" required><br>
+                <?php if (!empty($product['image'])): ?>
+                    <img src="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" alt="image" width="100"><br>
+                <?php endif; ?>
+            </div>
+>>>>>>> 1949a19ec6f857a22edb9c2fcd1bff879ed91bc4
+    
             <!-- Hiển thị ảnh hiện tại -->
             <div class="form-edit__detail">
 
