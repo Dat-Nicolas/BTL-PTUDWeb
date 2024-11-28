@@ -98,18 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <img src="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" alt="image" width="100"><br>
                 <?php endif; ?>
             </div>
-    <form action="edit_product.php?id=<?= $product['id'] ?>" method="post" class="form-edit__title">
-        <div class="form-edit__info">
-            <label for="name">Tên Sản Phẩm:</label>
-            <input type="text" id="name" name="name" value="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>" required><br>
     
-            <label for="image_url">Link Hình Ảnh:</label>
-            <input type="text" id="image_url" name="image_url" value="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" required><br>
-            <?php if (!empty($product['image'])): ?>
-                <img src="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" alt="image" width="100" ><br>
-            <?php endif; ?>
-        </div>
-
             <!-- Hiển thị ảnh hiện tại -->
             <div class="form-edit__detail">
 
