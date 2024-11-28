@@ -26,12 +26,7 @@ if (isset($product_id)) {
         $stmt_delete->bind_param("i", $product_id);
         $stmt_delete->execute();
 
-        // Bước 2: Cập nhật lại ID của các sản phẩm còn lại để dồn lại ID liên tiếp
-        $sql_update_ids = "
-            SET @count = 0;
-            UPDATE products SET id = (@count := @count + 1);
-        ";
-        $conn->query($sql_update_ids);
+       
 
         // Bước 3: Cập nhật lại AUTO_INCREMENT (đảm bảo ID tiếp theo sẽ đúng)
         $reset_auto_increment = "ALTER TABLE products AUTO_INCREMENT = 1";
@@ -40,7 +35,7 @@ if (isset($product_id)) {
         // Bước 4: Commit giao dịch (nếu không có lỗi)
         $conn->commit();
 
-        echo "Sản phẩm đã được xóa và cập nhật lại ID thành công.";
+        echo "Xóa thành công";
     } catch (Exception $e) {
         // Nếu có lỗi, rollback giao dịch
         $conn->rollback();

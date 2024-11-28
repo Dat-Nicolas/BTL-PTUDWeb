@@ -26,6 +26,7 @@ if (isset($_GET['id'])) {
     }
 }
 
+
 // Cập nhật thông tin sản phẩm
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
@@ -46,6 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die("Link ảnh không hợp lệ.");
         }
         $image = $image_url;
+    }
+    // Tính phần trăm giảm giá
+    if ($old_price > 0 && $old_price > $current_price &&$current_price > 0 ) {
+        $discount = (($old_price - $current_price) / $old_price) * 100;
+        $discount = round($discount, 2); 
+    }
+    else {
+        $discount = 0; 
     }
 
     // Cập nhật thông tin sản phẩm
@@ -87,17 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-edit">
         <h1>Sửa Sản Phẩm</h1>
 
-        <form action="edit_product.php?id=<?= $product['id'] ?>" method="post" class="form-edit__title">
-            <div class="form-edit__info">
-                <label for="name">Tên Sản Phẩm:</label>
-                <input type="text" id="name" name="name" value="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>" required><br>
-
-                <label for="image_url">Link Hình Ảnh:</label>
-                <input type="text" id="image_url" name="image_url" value="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" required><br>
-                <?php if (!empty($product['image'])): ?>
-                    <img src="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" alt="image" width="100"><br>
-                <?php endif; ?>
-            </div>
     <form action="edit_product.php?id=<?= $product['id'] ?>" method="post" class="form-edit__title">
         <div class="form-edit__info">
             <label for="name">Tên Sản Phẩm:</label>
@@ -127,9 +125,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <label for="origin">Nguồn Gốc:</label>
                 <input type="text" id="origin" name="origin" value="<?= htmlspecialchars($product['origin'], ENT_QUOTES, 'UTF-8') ?>" required><br>
-
-                <label for="discount">Giảm Giá (%):</label>
-                <input type="number" id="discount" name="discount" value="<?= $product['discount'] ?>" required><br>
 
                 <label for="rating">Đánh Giá:</label>
                 <input type="number" id="rating" name="rating" value="<?= $product['rating'] ?>" required><br>

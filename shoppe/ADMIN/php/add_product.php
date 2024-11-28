@@ -7,12 +7,14 @@ $dbname = "inventory_system";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Kiểm tra kết nối
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Xử lý form khi người dùng nhấn nút "Thêm Sản Phẩm"
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Retrieve form data
+    // Lấy dữ liệu từ form
     $name = $_POST['name'];
     $image = $_POST['image'];
     $old_price = $_POST['old_price'];
@@ -20,20 +22,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sold = $_POST['sold'];
     $brand = $_POST['brand'];
     $origin = $_POST['origin'];
-    $discount = $_POST['discount'];
     $rating = $_POST['rating'];
 
-    // Insert the new product into the database
+    // Tính phần trăm giảm giá
+    if ($old_price > 0 && $old_price > $current_price && $current_price >0 ) {
+        $discount = (($old_price - $current_price) / $old_price) * 100;
+        $discount = round($discount, 2); 
+    }
+    else {
+        $discount = 0; 
+    }
+
+    // Chèn sản phẩm mới vào cơ sở dữ liệu
     $sql = "INSERT INTO products (name, image, old_price, current_price, sold, brand, origin, discount, rating)
             VALUES ('$name', '$image', '$old_price', '$current_price', '$sold', '$brand', '$origin', '$discount', '$rating')";
     
     if ($conn->query($sql) === TRUE) {
-        echo "New product added successfully!";
-        // Redirect back to the products page or list page after adding the product.
+        echo "Sản phẩm mới đã được thêm thành công!";
         header("Location: index.php");
         exit();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Lỗi: " . $sql . "<br>" . $conn->error;
     }
 }
 
@@ -88,11 +97,6 @@ $conn->close();
                 <div class="form-field">
                     <label for="origin">Nguồn Gốc</label>
                     <input type="text" id="origin" name="origin" required>
-                </div>
-
-                <div class="form-field">
-                    <label for="discount">Giảm Giá (%)</label>
-                    <input type="number" id="discount" name="discount" required>
                 </div>
 
                 <div class="form-field">

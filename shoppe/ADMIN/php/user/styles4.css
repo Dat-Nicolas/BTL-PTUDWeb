@@ -1,0 +1,141 @@
+/* styles.css */
+
+/* Cấu trúc chung của trang */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fb;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #cd350f;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Nút thêm sản phẩm */
+button {
+    padding: 12px 20px;
+    background-color: #cd350f;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #d4431f; /* Làm cho màu sáng hơn khi hover */
+    transform: translateY(-2px); /* Hiệu ứng nhấn nhẹ */
+}
+
+/* Thanh tìm kiếm */
+#search {
+    width: 300px; /* Mở rộng thanh tìm kiếm */
+    padding: 12px;
+    margin: 20px 0px 0px 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+#search:focus {
+    border-color: #cd350f;
+}
+
+/* Bảng sản phẩm */
+table {
+    width: 95%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Thẻ trong bảng */
+table th, table td {
+    padding: 12px 20px;
+    text-align: left;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Màu nền tiêu đề bảng */
+table th {
+    background-color: #cd350f;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Hiệu ứng cho dòng chẵn */
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Hiệu ứng hover cho dòng */
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Liên kết hành động trong bảng */
+table td a {
+    color: #2196F3;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+table td a:hover {
+    background-color: #cd350f;
+    color: white;
+}
+
+/* Định dạng thông báo nếu không có sản phẩm */
+.no-products {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+    margin-top: 20px;
+}
+
+/* Responsive cho màn hình nhỏ */
+@media screen and (max-width: 768px) {
+    header {
+        font-size: 20px;
+    }
+
+    table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    table th, table td {
+        padding: 10px;
+    }
+
+    #search {
+        width: 100%;
+        margin: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        font-size: 18px;
+    }
+}
