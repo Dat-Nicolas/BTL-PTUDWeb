@@ -27,7 +27,10 @@ if ($result && $result->num_rows > 0) {
 }
 
 // Trả về dữ liệu dưới dạng JSON
-echo json_encode($cart_items);
+echo json_encode([
+    'status' => 'success',
+    'data' => $cart_items
+]);
 
 // Đóng kết nối
 $conn->close();

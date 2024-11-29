@@ -59,9 +59,9 @@ $conn->close();
                     <label for="password">Password</label>
                     <input type="text" id="password" name="password" required>
                 </div>
-                <div class="form-actions">
-                    <button type="submit">Thêm Người Dùng</button>
-                    <a href="index_user.php"><button type="button">Quay Lại</button></a>
+                <div class="form-actions" >
+                    <button type="submit" style="margin-top: 10px;">Thêm Người Dùng</button>
+                    <a href="index_user.php"><button type="button" style="margin-top: 10px;">Quay Lại</button></a>
                 </div>
             </form>
         </div>
