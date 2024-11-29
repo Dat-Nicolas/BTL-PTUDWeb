@@ -346,13 +346,13 @@ function updateCartTotal() {
   let total = 0;
 
   cartItems.forEach((item) => {
-    const priceText = item.querySelector(".header__cart-item-price").innerText; // Lấy giá sản phẩm
+    const priceText = item.querySelector(".header__cart-item-price").innerText; 
     // Chuyển giá thành số nguyên, loại bỏ dấu phẩy phân tách hàng nghìn
     const price = parseInt(priceText.replace(/[^0-9]/g, "")); // Loại bỏ dấu phẩy và ký tự không phải số
     const quantity = parseInt(
       item.querySelector(".header__cart-item-quantity").innerText
     ); // Lấy số lượng sản phẩm
-    total += price * quantity; // Tính tổng tiền
+    total += price * quantity; 
   });
 
   // Cập nhật tổng tiền vào giao diện theo định dạng số có dấu phẩy phân tách hàng nghìn
@@ -360,8 +360,8 @@ function updateCartTotal() {
 }
 
 // Lấy các phần tử
-const closeModalBtn = document.getElementById("close-modal"); // Nút đóng modal chung
-const closeTitleBtn = document.getElementById("close-title-btn"); // Nút đóng tiêu đề modal
+const closeModalBtn = document.getElementById("close-modal"); 
+const closeTitleBtn = document.getElementById("close-title-btn"); 
 
 // Sự kiện đóng modal chung (Nút X trên góc)
 closeModalBtn.addEventListener("click", function () {
@@ -393,14 +393,22 @@ function showToastMessage(message) {
 
 // Xử lý khi bấm vào nút "Đặt Hàng"
 document.querySelector(".header__cart-buy").addEventListener("click", () => {
+
+  const cartItems = document.getElementById("cart-items");
+  const cartNotice = document.querySelector(".header__cart-notice");
+  const cartTotal = document.getElementById("cart-total-left");
+
+  // Kiểm tra nếu giỏ hàng trống
+  if (!cartItems || cartItems.innerHTML.trim() === "") {
+    showToastMessage("Giỏ hàng không có sản phẩm, đặt hàng đã bị hủy.");
+    return;
+  }
+
   // Hiển thị hộp thoại xác nhận
   const userConfirmed = confirm("Bạn có chắc chắn muốn đặt hàng?");
   if (userConfirmed) {
     // Xóa tất cả sản phẩm khỏi giỏ hàng
-    const cartItems = document.getElementById("cart-items");
-    const cartNotice = document.querySelector(".header__cart-notice");
-    const cartTotal = document.getElementById("cart-total-left");
-
+    
     cartItems.innerHTML = ""; // Xóa nội dung danh sách sản phẩm
     cartNotice.textContent = "0"; // Cập nhật số lượng sản phẩm về 0
     cartTotal.textContent = ""; // Xóa tổng tiền

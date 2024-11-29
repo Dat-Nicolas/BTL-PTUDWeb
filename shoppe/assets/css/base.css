@@ -64,28 +64,6 @@ a {
     width: 83.333%;
 }
 
-/* animation */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes growth {
-    from {
-        transform: scale(var(--growth-from));
-    }
-
-    to {
-        transform: scale(var(--growth-to));
-    }
-}
-
 
 /* modal */
 
@@ -243,4 +221,44 @@ a {
     height: var(--height);
     line-height: var(--height);
     text-align: center;
+}
+
+
+/* animation */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes growth {
+    from {
+        transform: scale(var(--growth-from));
+    }
+
+    to {
+        transform: scale(var(--growth-to));
+    }
+}
+
+
+
+
+@keyframes animate-border {
+    0% {
+        border-image-source: linear-gradient(90deg, #ff0000, #00ff00, #0000ff);
+    }
+
+    50% {
+        border-image-source: linear-gradient(90deg, #00ff00, #0000ff, #ff0000);
+    }
+
+    100% {
+        border-image-source: linear-gradient(90deg, #ff0000, #00ff00, #0000ff);
+    }
 }
