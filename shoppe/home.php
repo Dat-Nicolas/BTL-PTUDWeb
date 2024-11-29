@@ -11,9 +11,12 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
+
 $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,15 +30,13 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/Grid.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
-    <link rel="stylesheet" href="./assets/css/list-product.css">
-    
+
     <!-- <link rel="stylesheet" href="./css/reset.css"> -->
-    <link rel="stylesheet" href=".assets/fonts/fontawesome-free-6.6.0-web/css/fontawesome.min.css">
     <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" /> -->
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;&display=swap&subnet=vietnamese"
         rel="stylesheet">
-
+   
 </head>
 
 <body>
@@ -103,16 +104,9 @@ $result = $conn->query($sql);
                                     </a>
                                 </a>
                             </li>
-                            <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate"
-                                onclick="showRegisterForm()">
-                                <a class="header__navbar-item-link">Đăng ký</a>
-                            </li>
-                            <li class="header__navbar-item header__navbar-item--strong" onclick="showLoginForm()">
-                                <a class="header__navbar-item-link">Đăng nhập</a>
-                            </li>
                             <li class="header__navbar-item header__navbar-user">
                                 <img src="./assets/img/product2.jpg" alt="" class="header__navbar-user-img">
-                                <span class="header__navbar-user-name"> Nguyễn Nhân Đạt</span>
+                                <span class="header__navbar-user-name">User</span>
 
                                 <ul class="header__navbar-user-menu">
                                     <li class="header__navbar-user-item">
@@ -122,10 +116,10 @@ $result = $conn->query($sql);
                                         <a href="">Địa chỉ của tôi </a>
                                     </li>
                                     <li class="header__navbar-user-item">
-                                        <a href="">Đơn mua</a>
+                                        <a href="">Lịch sử đơn hàng</a>
                                     </li>
                                     <li class="header__navbar-user-item header__navbar-user-item--separate">
-                                        <a href="">Đăng xuất</a>
+                                        <a href="http://localhost/My%20project/BTL-PTUDWeb/login.php">Đăng xuất</a>
                                     </li>
                                 </ul>
                             </li>
@@ -134,113 +128,12 @@ $result = $conn->query($sql);
                                 <div class="modal__overlay" onclick="closeModal()"></div>
                                 <div class="modal__body">
                                     <div class="modal__inner">
-                                        <!-- ------------- register-form ------------------>
-                                        <div class="auth-form" id="registerModal" style="display: none;">
-                                            <div class="auth-form__container">
-                                                <div class="auth-form__header">
-                                                    <h3 class="auth-form__heading">Đăng ký</h3>
-                                                    <!-- Đã thêm id "switchToLogin" -->
-                                                    <span class="auth-form__switch-btn" id="switchToLogin">Đăng
-                                                        nhập</span>
-                                                </div>
-                                                <div class="auth-form__form">
-                                                    <div class="auth-form__group">
-                                                        <input type="text" class="auth-form__input"
-                                                            placeholder="Nhập Email">
-                                                    </div>
-                                                    <div class="auth-form__group">
-                                                        <input type="text" class="auth-form__input"
-                                                            placeholder="Nhập mật khẩu">
-                                                    </div>
-                                                    <div class="auth-form__group">
-                                                        <input type="text" class="auth-form__input"
-                                                            placeholder="Nhập lại mật khẩu">
-                                                    </div>
-                                                </div>
-                                                <div class="auth-form__aside">
-                                                    <p class="auth-form__policy-text">
-                                                        Bằng việc đăng ký, bạn đã đồng ý với Shoppe về
-                                                        <a href="https://help.shopee.vn/portal/4/article/77242"
-                                                            class="auth-form__text-link">Điều khoản dịch vụ</a> và
-                                                        <a href="https://help.shopee.vn/portal/4/article/77244"
-                                                            class="auth-form__text-link">Chính sách bảo mật</a>
-                                                    </p>
-                                                </div>
-                                                <div class="auth-form__controls">
-                                                    <button class="btn btn--normal auth-form__controls-back">TRỞ
-                                                        LẠI</button>
-                                                    <button class="btn btn--primary">ĐĂNG KÝ</button>
-                                                </div>
-                                            </div>
-                                            <div class="auth-form__socials">
-                                                <a href="https://www.facebook.com/ShopeeVN"
-                                                    class="auth-form__socials-facebook btn btn--size-s btn--with-icon">
-                                                    <i class="auth-form__socials-icon fab fa-facebook-square"></i>
-                                                    <span class="auth-form__social-title">Kết nối với Facebook</span>
-                                                </a>
-                                                <a href="https://www.google.com/intl/en_uk/chrome/"
-                                                    class="auth-form__socials-google btn btn--size-s btn--with-icon">
-                                                    <i class="auth-form__socials-icon fab fa-google"></i>
-                                                    <span class="auth-form__social-title">Kết nối với Google</span>
-                                                </a>
-                                            </div>
-                                        </div>
 
-                                        <!-- -------------- login-form ------------------>
-                                        <div class="auth-form" id="loginModal" style="display: none;">
-                                            <div class="auth-form__container">
-                                                <div class="auth-form__header">
-                                                    <h3 class="auth-form__heading">Đăng nhập</h3>
-                                                    <!-- Đã thêm id "switchToRegister" -->
-                                                    <span class="auth-form__switch-btn" id="switchToRegister">Đăng
-                                                        ký</span>
-                                                </div>
-                                                <div class="auth-form__form">
-                                                    <div class="auth-form__group">
-                                                        <input type="text" class="auth-form__input"
-                                                            placeholder="Nhập Email">
-                                                    </div>
-                                                    <div class="auth-form__group">
-                                                        <input type="text" class="auth-form__input"
-                                                            placeholder="Nhập mật khẩu">
-                                                    </div>
-                                                </div>
-                                                <div class="auth-form__aside">
-                                                    <div class="auth-form__help">
-                                                        <a href=""
-                                                            class="auth-form__help-link auth-form__help-forgot">Quên mật
-                                                            khẩu</a>
-                                                        <a href="https://help.shopee.vn/portal/4"
-                                                            class="auth-form__help-link">Cần trợ giúp?</a>
-                                                    </div>
-                                                </div>
-                                                <div class="auth-form__controls">
-                                                    <button class="btn btn--normal auth-form__controls-back">TRỞ
-                                                        LẠI</button>
-                                                    <button class="btn btn--primary">ĐĂNG NHẬP</button>
-                                                </div>
-                                            </div>
-                                            <div class="auth-form__socials">
-                                                <a href="https://www.facebook.com/ShopeeVN"
-                                                    class="auth-form__socials-facebook btn btn--size-s btn--with-icon">
-                                                    <i class="auth-form__socials-icon fab fa-facebook-square"></i>
-                                                    <span class="auth-form__social-title">Đăng nhập với Facebook</span>
-                                                </a>
-                                                <a href="https://www.google.com/intl/en_uk/chrome/"
-                                                    class="auth-form__socials-google btn btn--size-s btn--with-icon">
-                                                    <i class="auth-form__socials-icon fab fa-google"></i>
-                                                    <span class="auth-form__social-title">Đăng nhập với Google</span>
-                                                </a>
-                                            </div>
-                                        </div>
+
                                     </div>
-                                </div>
-                            </div>
-
-                    </div>
-                    </a>
-                    </li>
-                    </ul>
+                                    </a>
+                                    </li>
+                        </ul>
                 </nav>
                 <!-- header with search  -->
                 <div class="header-with-search">
@@ -256,19 +149,14 @@ $result = $conn->query($sql);
                     <div class="header__search">
                         <div class="header__search-input-wrap">
                             <input type="text" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
-                            <!-- search history -->
+                           
                             <div class="header__search-history">
                                 <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
                                 <ul class="header__search-history-list">
                                     <li class="header__search-history-item">
                                         <a href="">Đồ Công Nghệ</a>
                                     </li>
-                                    <li class="header__search-history-item">
-                                        <a href="">Đồ Ăn</a>
-                                    </li>
-                                    <li class="header__search-history-item">
-                                        <a href="">Thời Trang</a>
-                                    </li>
+                                   
                                 </ul>
                             </div>
 
@@ -296,25 +184,16 @@ $result = $conn->query($sql);
                     <div class="header__cart">
                         <div class="header__cart-wrap">
                             <i class="header__cart-icon fas fa-shopping-cart"></i>
-                            <span class="header__cart-notice">0</span>
                             <!-- no cart -->
                             <div class="header__cart-list">
-                                <img src="./assets/img/no-product.png" alt="" class="header__cart-no-cart-img">
-                                <span class="header__cart-list-no-cart-msg">
-                                    Chưa có sản phẩm
-                                </span>
                                 <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
-
-                                <!-- has cart item -->
-                                <ul class="header__cart-list-item" id="cart-items"></ul>
-
-                                <!-- Phần hiển thị tổng tiền -->
+                                <ul class="header__cart-list--item">
+                                </ul>
                                 <div class="header__cart-total-wrap">
                                     <span class="header__cart-total-left"></span>
                                     <span class="header__cart-total" id="cart-total-left"></span>
-                                    <a class="header__cart-buy btn btn--primary">Đặt Hàng</a>
+                                    <a class="header__cart-buy btn btn--primary order-button">Đặt Hàng</a>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -339,9 +218,6 @@ $result = $conn->query($sql);
         <div class="app__container">
             <div class="grid wide">
                 <div class="grid__row app__content">
-                    <!-- <marquee class="message-shopee hide-on-mobile-tablet" behavior="alternate" direction="left" scrollamount="8" hidden>
-                        WELCOM TO SHOPEE
-                    </marquee> -->
                     <div class="grid__column-2">
                         <nav class="category">
                             <h3 class="category__heading hide-on-mobile-tablet">
@@ -354,13 +230,6 @@ $result = $conn->query($sql);
                                 </li>
                                 <li class="category-item" data-category="tech">
                                     <a href="#" class="category-item__link">Đồ Công Nghệ</a>
-                                </li>
-                                <li class="category-item" data-category="food">
-                                    <a href="#" class="category-item__link">Đồ Ăn</a>
-                                </li>
-                                <li class="category-item" data-category="fashion">
-                                    <a href="#" class="category-item__link">Thời Trang</a>
-                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -383,71 +252,65 @@ $result = $conn->query($sql);
                                 </div>
                                 <i class="select-input__icon fas fa-angle-down"></i>
                             </div>
-                            <div class="home-filter__page">
-                                <span class="home-filter__page-num">
-                                    <span class="home-filter__page-current">1</span>/14
-                                </span>
-                                <div class="home-filter__page-control">
-                                    <a href="" class="home-filter__page-btn home-filter__page-btn--disable">
-                                        <i class="home-filter__page-icon fas fa-angle-left"></i>
-                                    </a>
-                                    <a href="" class="home-filter__page-btn">
-                                        <i class="home-filter__page-icon fas fa-angle-right"></i>
-                                    </a>
-                                </div>
-                            </div>
                         </div>
-                        <!-- mobile-category -->
-                        <nav class="mobile-category ">
-                            <ul class="mobile-category__list hide-on-mobile-tablet">
-                                <li class="mobile-category__item">
-                                    <a href="" class="mobile-category__link">Dụng cụ và thiết bị tiền ích</a>
-                                </li>
-                                <li class="mobile-category__item">
-                                    <a href="" class="mobile-category__link">Dụng cụ và thiết bị tiền ích</a>
-                                </li>
-                                <li class="mobile-category__item">
-                                    <a href="" class="mobile-category__link">Dụng cụ và thiết bị tiền ích</a>
-                                </li>
-                                <li class="mobile-category__item">
-                                    <a href="" class="mobile-category__link">Dụng cụ và thiết bị tiền ích</a>
-                                </li>
-                                <li class="mobile-category__item">
-                                    <a href="" class="mobile-category__link">Dụng cụ và thiết bị tiền ích</a>
-                                </li>
-                                <li class="mobile-category__item">
-                                    <a href="" class="mobile-category__link">Dụng cụ và thiết bị tiền ích</a>
-                                </li>
-                                <li class="mobile-category__item">
-                                    <a href="" class="mobile-category__link">Dụng cụ và thiết bị tiền ích</a>
-                                </li>
-                                <li class="mobile-category__item">
-                                    <a href="" class="mobile-category__link">Dụng cụ và thiết bị tiền ích</a>
-                                </li>
-                            </ul>
-                        </nav>
 
-                        <!-- home-product -->
                         <div class="home-product">
                             <div class="grid__row" id="list-products">
+                                <?php
+                                // Số sản phẩm trên mỗi trang
+                                $limit = 8;
+
+                                // Lấy số trang hiện tại từ URL (mặc định là trang 1)
+                                $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                                $offset = ($page - 1) * $limit;
+
+                                // Đếm tổng số sản phẩm
+                                $total_query = "SELECT COUNT(*) AS total FROM products";
+                                $total_result = $conn->query($total_query);
+                                $total_products = $total_result->fetch_assoc()['total'];
+
+                                // Tính tổng số trang
+                                $total_pages = ceil($total_products / $limit);
+
+                                // Lấy dữ liệu sản phẩm cho trang hiện tại
+                                $sql = "SELECT * FROM products LIMIT $offset, $limit";
+                                $result = $conn->query($sql);
+                                ?>
                                 <div id="list-view" style="display: flex; flex-wrap: wrap; gap: 20px;">
                                     <?php while ($row = $result->fetch_assoc()) { ?>
-                                        <div onclick='showProductModal(<?php echo json_encode($row); ?>)' 
-                                            style="cursor: pointer; width: 250px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                                        <div id="product" onclick='showProductModal(<?php echo json_encode($row); ?>)'
+                                            style="cursor: pointer; width: 230px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-top: 10px;">
                                             <div style="position: relative;">
-                                                <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="product image" 
+                                                <img src="<?php echo htmlspecialchars($row['image']); ?>"
+                                                    alt="product image"
                                                     style="width: 100%; height: 180px; object-fit: cover;">
-                                                <div style="position: absolute; top: 10px; left: 10px; background: red; color: white; padding: 5px; border-radius: 5px; font-size: 12px;">Yêu thích</div>
-                                                <div style="position: absolute; top: 10px; right: 10px; background: orange; color: white; padding: 5px; border-radius: 5px; font-size: 12px;"><?php echo $row['discount']; ?>% Giảm</div>
+                                                <div
+                                                    style="position: absolute; top: 10px; left: 10px; background: red; color: white; padding: 5px; border-radius: 5px; font-size: 12px;">
+                                                    Yêu thích</div>
+                                                <div
+                                                    style="position: absolute; top: 10px; right: 10px; background: orange; color: white; padding: 5px; border-radius: 5px; font-size: 12px;">
+                                                    Giảm <?php echo $row['discount']; ?> %
+                                                </div>
                                             </div>
                                             <div style="padding: 10px;">
-                                                <h3 style="font-size: 16px; margin: 0; color: #333;"><?php echo $row['name']; ?></h3>
-                                                <p style="font-size: 14px; color: gray; margin: 5px 0;"><?php echo $row['brand']; ?> - <?php echo $row['origin']; ?></p>
-                                                <p style="margin: 5px 0; color: #999; text-decoration: line-through;"><?php echo number_format($row['old_price'], 0, ',', '.'); ?> đ</p>
-                                                <p style="margin: 5px 0; font-size: 18px; color: red; font-weight: bold;"><?php echo number_format($row['current_price'], 0, ',', '.'); ?> đ</p>
-                                                <p style="margin: 5px 0; color: #555;"><?php echo $row['sold']; ?> đã bán</p>
+                                                <h3 style="font-size: 16px; margin: 0; color: #333;">
+                                                    <?php echo $row['name']; ?>
+                                                </h3>
+                                                <p style="font-size: 14px; color: gray; margin: 5px 0;">
+                                                    <?php echo $row['brand']; ?> - <?php echo $row['origin']; ?>
+                                                </p>
+                                                <p style="margin: 5px 0; color: #999; text-decoration: line-through;">
+                                                    <?php echo number_format($row['old_price'], 0, ',', '.'); ?> đ
+                                                </p>
+                                                <p style="margin: 5px 0; font-size: 18px; color: red; font-weight: bold;">
+                                                    <?php echo number_format($row['current_price'], 0, ',', '.'); ?> đ
+                                                </p>
+                                                <p style="margin: 5px 0; color: #555;"><?php echo $row['sold']; ?> đã bán
+                                                </p>
                                                 <div style="color: gold;">
-                                                    <?php for ($i = 0; $i < $row['rating']; $i++) { echo '<i class="fas fa-star"></i>'; } ?>
+                                                    <?php for ($i = 0; $i < $row['rating']; $i++) {
+                                                        echo '<i class="fas fa-star"></i>';
+                                                    } ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -455,223 +318,268 @@ $result = $conn->query($sql);
                                 </div>
                             </div>
 
-                            <!-- Modal hiển thị thông tin chi tiết sản phẩm -->
-                            <div id="product-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;">
-                                <div style="width: 400px; margin: 100px auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+                            <div id="product-modal"
+                                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;">
+                                <div
+                                    style="width: 400px; margin: 100px auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.3); position: relative;">
                                     <div id="modal-content" style="padding: 20px;">
                                         <!-- Nội dung chi tiết sản phẩm sẽ được thêm vào đây -->
                                     </div>
-                                    <button id="close-modal" style="display: block; margin: 0 auto 20px; padding: 10px 20px; background: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Đóng</button>
+
+                                    <button id="close-button"
+                                        style="position: absolute; top: 0; right: 0; padding: 5px 10px; background: transparent; border: none; color: black; font-size: 20px; cursor: pointer;">X</button>
                                 </div>
                             </div>
-                        </div>
 
-                        <script>
-                            function showProductModal(product) {
-                                const modal = document.getElementById('product-modal');
-                                const modalContent = document.getElementById('modal-content');
+                            <script>
+                                // Mở modal khi nhấn vào sản phẩm
+                                function showProductModal(product) {
+                                    const modal = document.getElementById('product-modal');
+                                    const modalContent = document.getElementById('modal-content');
 
-                                modalContent.innerHTML = `
-                                    <img src="${product.image}" alt="product image" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid #ddd;">
-                                    <h2 style="margin: 10px 0;">${product.name}</h2>
-                                    <p>Thương hiệu: ${product.brand}</p>
-                                    <p>Xuất xứ: ${product.origin}</p>
-                                    <p>Giá cũ: <span style="text-decoration: line-through; color: gray;">${parseInt(product.old_price).toLocaleString()} đ</span></p>
-                                    <p>Giá hiện tại: <span style="color: red; font-size: 20px;">${parseInt(product.current_price).toLocaleString()} đ</span></p>
-                                    <p>Đã bán: ${product.sold}</p>
-                                    <p>Đánh giá: ${'⭐'.repeat(product.rating)}</p>
-                                `;
+                                    modalContent.innerHTML = `
+        <img src="${product.image}" alt="product image" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid #ddd;">
+        <h2 style="margin: 10px 0;font-size: 3rem;line-height: 3rem;">${product.name}</h2>
+        <p>Thương hiệu: ${product.brand}</p>
+        <p>Xuất xứ: ${product.origin}</p>
+        <p>Giá cũ: <span style="text-decoration: line-through;font-size: 1rem; color: gray;">${parseInt(product.old_price).toLocaleString()} đ</span></p>
+        <p>Giá hiện tại: <span style="font-size: 3rem;color: red;">${parseInt(product.current_price).toLocaleString()} đ</span></p>
+        <button id="add-to-cart" style="display: block; margin: 20px auto; padding: 10px 20px; background: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Add to cart</button>
+    `;
 
-                                modal.style.display = 'block';
-                            }
+                                    modal.style.display = 'block';
 
-                            document.getElementById('close-modal').addEventListener('click', () => {
-                                document.getElementById('product-modal').style.display = 'none';
-                            });
+                                    // Xử lý sự kiện cho nút "Add to cart"
+                                    document.getElementById('add-to-cart').addEventListener('click', () => {
+                                        const cartList = document.querySelector('.header__cart-list--item');
 
-                            // Đóng modal khi nhấn ra ngoài
-                            window.addEventListener('click', (event) => {
-                                const modal = document.getElementById('product-modal');
-                                if (event.target === modal) {
-                                    modal.style.display = 'none';
+                                        // Thêm sản phẩm vào giỏ hàng
+                                        const li = document.createElement('li');
+                                        li.className = 'header__cart-item';
+                                        li.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="header__cart-item-img" style="max-width: 50px;">
+            <div class="header__cart-item-info">
+                <h5 class="header__cart-item-name">${product.name}</h5>
+            </div>
+        `;
+                                        cartList.appendChild(li);
+
+                                        // Tắt modal sau khi thêm sản phẩm vào giỏ hàng
+                                        modal.style.display = 'none';
+                                    });
                                 }
-                            });
-                        </script>
+
+                                // Đóng modal khi nhấn nút "X"
+                                document.getElementById('close-button').addEventListener('click', () => {
+                                    document.getElementById('product-modal').style.display = 'none';
+                                });
+
+                                // Đóng modal khi nhấn ra ngoài modal
+                                window.addEventListener('click', (event) => {
+                                    const modal = document.getElementById('product-modal');
+                                    if (event.target === modal) {
+                                        modal.style.display = 'none';
+                                    }
+                                });
 
 
-                                
+                                // Hàm sắp xếp sản phẩm theo giá
+                                function sortProducts(order) {
+                                    // Lấy danh sách các sản phẩm
+                                    const productsContainer = document.getElementById('list-products');
+                                    const products = Array.from(productsContainer.querySelectorAll('#product'));
 
-                                <!-- Thông tin sản phẩm -->
-                                <div class="product-modal" id="product-modal">
-                                    <div class="product-modal__content">
-                                        <!-- Nút X đóng modal chung -->
-                                        <button class="close-modal" id="close-modal">X</button>
-                                        <div class="modal-wraper">
-                                            <div class="product-modal__img">
-                                                <img id="modal-img" src="" alt="">
-                                            </div>
-                                            <div class="product-modal__details">
-                                                <!-- Nút X đóng tiêu đề -->
-                                                <h2 id="modal-title">
-                                                    Tên sản phẩm
-                                                    <button class="close-title-btn" id="close-title-btn">X</button>
-                                                </h2>
-                                                <div class="modal-price">
-                                                    <span id="modal-old-price"></span>
-                                                    <span id="modal-current-price"></span>
-                                                </div>
-                                                <button class="order-btn" id="order-btn">Add to Cart</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    // Sắp xếp sản phẩm dựa trên giá
+                                    products.sort((a, b) => {
+                                        const priceA = parseInt(a.querySelector('p:nth-of-type(3)').textContent.replace(/[^0-9]/g, ''));
+                                        const priceB = parseInt(b.querySelector('p:nth-of-type(3)').textContent.replace(/[^0-9]/g, ''));
+
+                                        return order === 'asc' ? priceA - priceB : priceB - priceA;
+                                    });
+
+                                    // Xóa các sản phẩm cũ khỏi container
+                                    productsContainer.innerHTML = '';
+
+                                    // Thêm sản phẩm đã sắp xếp vào container
+                                    products.forEach(product => productsContainer.appendChild(product));
+                                }
+
+                                // Gắn sự kiện click cho các nút sắp xếp
+                                const sortLowToHigh = document.querySelector('.select-input__item[value="thấp đến cao"]');
+                                const sortHighToLow = document.querySelector('.select-input__item[value="cao đến thấp"]');
+
+                                if (sortLowToHigh) {
+                                    sortLowToHigh.addEventListener('click', (event) => {
+                                        event.preventDefault(); // Ngăn điều hướng liên kết
+                                        sortProducts('asc');
+                                    });
+                                }
+
+                                if (sortHighToLow) {
+                                    sortHighToLow.addEventListener('click', (event) => {
+                                        event.preventDefault(); // Ngăn điều hướng liên kết
+                                        sortProducts('desc');
+                                    });
+                                }
 
 
+                                // Xử lý sự kiện đặt hàng
+                                const orderButton = document.querySelector('.order-button');
+                                const cartList = document.querySelector('.header__cart-list--item');
+                                const cartTotalWrap = document.querySelector('.header__cart-total-wrap'); // Lấy phần giỏ hàng để ẩn
+
+                                if (orderButton) {
+                                    orderButton.addEventListener('click', () => {
+                                        // Kiểm tra xem giỏ hàng có sản phẩm không
+                                        if (cartList && cartList.children.length > 0) {
+                                            const confirmation = confirm('Bạn có chắc chắn muốn đặt hàng?');
+                                            if (confirmation) {
+                                                // Xóa toàn bộ sản phẩm trong giỏ hàng
+                                                cartList.innerHTML = '';
+
+                                                // Hiển thị thông báo đặt hàng thành công
+                                                alert('Đặt hàng thành công!');
+
+
+                                            }
+                                        } else {
+                                            alert('Giỏ hàng của bạn đang trống! Vui lòng thêm sản phẩm trước khi đặt hàng.');
+                                        }
+                                    });
+                                }
+                            </script>
+
+
+                            <!-- pagination -->
+                            <div class="pagination home-product__pagination">
+                                <?php if ($page > 1): ?>
+                                    <li class="pagination-item">
+                                        <a href="?page=<?php echo $page - 1; ?>" class="pagination-item__link">
+                                            <i class="pagination-item__icon fas fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                                    <li class="pagination-item <?php echo ($i == $page) ? 'pagination-item--active' : ''; ?>">
+                                        <a href="?page=<?php echo $i; ?>" class="pagination-item__link"><?php echo $i; ?></a>
+                                    </li>
+                                <?php endfor; ?>
+
+                                <?php if ($page < $total_pages): ?>
+                                    <li class="pagination-item">
+                                        <a href="?page=<?php echo $page + 1; ?>" class="pagination-item__link">
+                                            <i class="pagination-item__icon fas fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
                             </div>
                         </div>
-                        <!-- pagination -->
-                        <div class="pagination home-product__pagination">
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">
-                                    <i class="pagination-item__icon fas fa-angle-left"></i>
-                                </a>
-                            </li>
-
-                            <li class="pagination-item pagination-item--active">
-                                <a href="" class="pagination-item__link">1</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">2</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">3</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">4</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">5</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">6</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">...</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">14</a>
-                            </li>
-
-                            <li class="pagination-item">
-                                <a href="" class="pagination-item__link">
-                                    <i class="pagination-item__icon fas fa-angle-right"></i>
-                                </a>
-                            </li>
-                        </div>
                     </div>
+
                 </div>
             </div>
-
-
         </div>
-        <!-- footer -->
-        <footer class="footer">
-            <div class="grid wide footer__content">
-                <div class="grid__row">
-                    <div class="col l-2-4 m-4 c-6">
-                        <h3 class="footer__heading">Chăm sóc khách hàng</h3>
-                        <ul class="footer-list">
-                            <li class="footer-item">
-                                <a href="https://help.shopee.vn/portal/4" class="footer-item__link">Trung tâm trợ
-                                    giúp</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://shopee.vn/blog/" class="footer-item__link">Shopee Blog</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://help.shopee.vn/portal/4/article/79180-[Th%c3%a0nh-vi%c3%aan-m%e1%bb%9bi]-L%c3%a0m-sao-%c4%91%e1%bb%83-mua-h%c3%a0ng-%2F-%c4%91%e1%ba%b7t-h%c3%a0ng-tr%c3%aan-%e1%bb%a9ng-d%e1%bb%a5ng-Shopee%3F"
-                                    class="footer-item__link">Hướng dẫn mua hàng</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col l-2-4 m-4 c-6">
-                        <h3 class="footer__heading">Giới thiệu</h3>
-                        <ul class="footer-list">
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://careers.shopee.vn/about" class="footer-item__link">Giới thiệu</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://careers.shopee.vn/jobs" class="footer-item__link">Tuyển dụng</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://help.shopee.vn/portal/4/article/77242" class="footer-item__link">Điều
-                                    khoản</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col l-2-4 m-4 c-6">
-                        <h3 class="footer__heading">Thanh Toán</h3>
-                        <ul class="footer-list">
-                            <li class="footer-item">
-                                <a href="https://www.mbbank.com.vn/registration" class="footer-item__link">Mb Bank</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://techcombank.com/khach-hang-ca-nhan/chi-tieu/tai-khoan"
-                                    class="footer-item__link">Techcom Bank</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://ebank.bidv.com.vn/DKNHDT/" class="footer-item__link">Bidv</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col l-2-4 m-4 c-6">
-                        <h3 class="footer__heading">Theo dõi</h3>
-                        <ul class="footer-list">
-                            <li class="footer-item">
-                                <a href="https://www.facebook.com/ShopeeVN" class="footer-item__link">
-                                    <i class="footer-item__icon fab fa-facebook"></i>
-                                    Facebook</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://www.instagram.com/Shopee_VN" class="footer-item__link">
-                                    <i class="footer-item__icon fab fa-instagram"></i>
-                                    Instagram</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="https://www.linkedin.com/" class="footer-item__link">
-                                    <i class="footer-item__icon fab fa-linkedin"></i>
-                                    Linkedin</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col l-2-4 m-8 c-12">
-                        <h3 class="footer__heading">Vào cửa hàng trên ứng dụng</h3>
-                        <div class="footer__download">
-                            <img src="./assets/img/img1.png" alt="Download QR" class="footer__download-qr">
-                            <div class="footer__download-apps">
-                                <a href="https://play.google.com/store/search?q=shopee&c=apps&hl=en-US"
-                                    class="footer__download-app-link">
-                                    <img src="./assets/img/img3.png" alt="Google play" class="footer__download-app-img">
-                                </a>
-                                <a href="https://apps.apple.com/vn/app/shopee-mua-s%E1%BA%AFm-online/id959841449"
-                                    class="footer__download-app-link">
-                                    <img src="./assets/img/img2.png" alt="App store" class="footer__download-app-img">
-                                </a>
-                            </div>
+
+
+    </div>
+    <!-- footer -->
+    <footer class="footer">
+        <div class="grid wide footer__content">
+            <div class="grid__row">
+                <div class="col l-2-4 m-4 c-6">
+                    <h3 class="footer__heading">Chăm sóc khách hàng</h3>
+                    <ul class="footer-list">
+                        <li class="footer-item">
+                            <a href="https://help.shopee.vn/portal/4" class="footer-item__link">Trung tâm trợ
+                                giúp</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://shopee.vn/blog/" class="footer-item__link">Shopee Blog</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://help.shopee.vn/portal/4/article/79180-[Th%c3%a0nh-vi%c3%aan-m%e1%bb%9bi]-L%c3%a0m-sao-%c4%91%e1%bb%83-mua-h%c3%a0ng-%2F-%c4%91%e1%ba%b7t-h%c3%a0ng-tr%c3%aan-%e1%bb%a9ng-d%e1%bb%a5ng-Shopee%3F"
+                                class="footer-item__link">Hướng dẫn mua hàng</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l-2-4 m-4 c-6">
+                    <h3 class="footer__heading">Giới thiệu</h3>
+                    <ul class="footer-list">
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://careers.shopee.vn/about" class="footer-item__link">Giới thiệu</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://careers.shopee.vn/jobs" class="footer-item__link">Tuyển dụng</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://help.shopee.vn/portal/4/article/77242" class="footer-item__link">Điều
+                                khoản</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l-2-4 m-4 c-6">
+                    <h3 class="footer__heading">Thanh Toán</h3>
+                    <ul class="footer-list">
+                        <li class="footer-item">
+                            <a href="https://www.mbbank.com.vn/registration" class="footer-item__link">Mb Bank</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://techcombank.com/khach-hang-ca-nhan/chi-tieu/tai-khoan"
+                                class="footer-item__link">Techcom Bank</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://ebank.bidv.com.vn/DKNHDT/" class="footer-item__link">Bidv</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l-2-4 m-4 c-6">
+                    <h3 class="footer__heading">Theo dõi</h3>
+                    <ul class="footer-list">
+                        <li class="footer-item">
+                            <a href="https://www.facebook.com/ShopeeVN" class="footer-item__link">
+                                <i class="footer-item__icon fab fa-facebook"></i>
+                                Facebook</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://www.instagram.com/Shopee_VN" class="footer-item__link">
+                                <i class="footer-item__icon fab fa-instagram"></i>
+                                Instagram</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="https://www.linkedin.com/" class="footer-item__link">
+                                <i class="footer-item__icon fab fa-linkedin"></i>
+                                Linkedin</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l-2-4 m-8 c-12">
+                    <h3 class="footer__heading">Vào cửa hàng trên ứng dụng</h3>
+                    <div class="footer__download">
+                        <img src="./assets/img/img1.png" alt="Download QR" class="footer__download-qr">
+                        <div class="footer__download-apps">
+                            <a href="https://play.google.com/store/search?q=shopee&c=apps&hl=en-US"
+                                class="footer__download-app-link">
+                                <img src="./assets/img/img3.png" alt="Google play" class="footer__download-app-img">
+                            </a>
+                            <a href="https://apps.apple.com/vn/app/shopee-mua-s%E1%BA%AFm-online/id959841449"
+                                class="footer__download-app-link">
+                                <img src="./assets/img/img2.png" alt="App store" class="footer__download-app-img">
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="footer__bottom">
-                <div class="grid wide ">
-                    <p class="footer__text">2024 - Bản quyền thuộc về Công ty My Copany</p>
-                </div>
+        <div class="footer__bottom">
+            <div class="grid wide ">
+                <p class="footer__text">2024 - Bản quyền thuộc về Công ty My Copany</p>
             </div>
-        </footer>
+        </div>
+    </footer>
     </div>
-    <script src="./assets/script.js"></script>
 </body>
 
 </html>
