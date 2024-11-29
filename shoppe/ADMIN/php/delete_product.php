@@ -35,7 +35,6 @@ if (isset($product_id)) {
         // Bước 4: Commit giao dịch (nếu không có lỗi)
         $conn->commit();
 
-        echo "Xóa thành công";
     } catch (Exception $e) {
         // Nếu có lỗi, rollback giao dịch
         $conn->rollback();

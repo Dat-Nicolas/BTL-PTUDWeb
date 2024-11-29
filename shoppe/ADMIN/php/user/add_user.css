@@ -44,7 +44,7 @@ input[type="number"]:focus {
 }
 
 button {
-    display: block;
+    display: inline-block;
     width: 100%;
     padding: 10px;
     background: #007bff;

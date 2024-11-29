@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-edit__detail">
                 <div class="form-actions">
                     <button type="submit">Cập Nhật</button>
-                    <a href="index_user.php"><button type="button">Quay Lại</button></a>
+                    <a href="index_user.php"><button type="button" style="display:inline-block;" ; >Quay Lại</button></a>
                 </div>
             </div>
         </form>

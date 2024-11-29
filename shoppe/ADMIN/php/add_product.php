@@ -105,8 +105,8 @@ $conn->close();
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit">Thêm Sản Phẩm</button>
-                    <a href="index.php"><button type="button">Quay Lại</button></a>
+                    <button type="submit" style="margin-top:10px;">Thêm Sản Phẩm</button>
+                    <a href="index.php"><button type="button" style="margin-top:10px; display:inline-block;">Quay Lại</button></a>
                 </div>
             </form>
         </div>

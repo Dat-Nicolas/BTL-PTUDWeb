@@ -32,17 +32,18 @@ $result = $conn->query($sql);
         <h1>Quản Lý Người Dùng</h1>
     </header>
     <main>
-        <div class="search-container">
+        <div class="search-container" style="display: flex;">
             <form method="GET">
-                <input type="text" name="search" placeholder="Tìm kiếm người dùng..." value="<?php echo htmlspecialchars($search); ?>">
-                <button type="submit">Tìm kiếm</button>
+                <input style="margin: 20px 30px;" type="text" name="search" placeholder="Tìm kiếm người dùng..." value="<?php echo htmlspecialchars($search); ?>">
             </form>
             <button onclick="location.href='add_user.php'">Thêm Người Dùng</button>
+            <button onclick="location.href='http://localhost/My%20project/BTL-PTUDWeb/shoppe/ADMIN/php/index.php'"> Quản lý sản phẩm</button>
         </div>
         <table id="user-table">
             <thead>
                 <tr>
                     <th>Email</th>
+                    <th>password</th>
                     <th>Hành động</th>
                 </tr>
             </thead>
@@ -51,6 +52,7 @@ $result = $conn->query($sql);
                     <?php while($row = $result->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($row['email']); ?></td>
+                            <td><?php echo htmlspecialchars($row['password']); ?></td>
                             <td>
                                 <a href="edit_user.php?id=<?php echo $row['id']; ?>">Sửa</a> |
                                 <a href="delete_user.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</a>
