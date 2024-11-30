@@ -13,31 +13,51 @@ if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-// Xử lý đăng nhập
+
+
+
+
+
+
+
+
+
+
+// Xử lý đăng nhập và đăng ký
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['login'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        // Kiểm tra nếu là tài khoản admin
-        if ($email === 'admin@gmail.com' && $password === 'admin123') {
-            echo "<script>alert('Đăng nhập thành công!'); window.location.href = 'http://localhost/My%20project/BTL-PTUDWeb/shoppe/ADMIN/php/index.php';</script>";
-            exit;
-        }
+        // Truy vấn thông tin từ bảng user
+        $sql_user = "SELECT * FROM user WHERE email = ?";
+        $stmt_user = $conn->prepare($sql_user);
+        $stmt_user->bind_param("s", $email);
+        $stmt_user->execute();
+        $result_user = $stmt_user->get_result();
 
-        $sql = "SELECT * FROM user WHERE email = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $user = $result->fetch_assoc();
-            if (password_verify($password, $user['password'])) {
-                // Đăng nhập thành công, chuyển hướng đến trang chính
+        // Truy vấn thông tin từ bảng manager
+        $sql_manager = "SELECT * FROM manager WHERE email = ?";
+        $stmt_manager = $conn->prepare($sql_manager);
+        $stmt_manager->bind_param("s", $email);
+        $stmt_manager->execute();
+        $result_manager = $stmt_manager->get_result();
+
+        if ($result_user->num_rows > 0) {
+            // Nếu tìm thấy user, kiểm tra mật khẩu
+            $user = $result_user->fetch_assoc();
+            if ($password === $user['password']) { // So sánh mật khẩu gốc
                 echo "<script>alert('Đăng nhập thành công!'); window.location.href = 'http://localhost/My%20project/BTL-PTUDWeb/shoppe/home.php';</script>";
             } else {
-                // echo "<script>alert('Mật khẩu không đúng!'); window.location.href = 'login.php';</script>";
-                echo "<script>alert('Đăng nhập thành công!'); window.location.href = 'http://localhost/My%20project/BTL-PTUDWeb/shoppe/home.php';</script>";
+                echo "<script>alert('Mật khẩu không đúng!'); window.location.href = 'login.php';</script>";
+            }
+        } elseif ($result_manager->num_rows > 0) {
+            // Nếu tìm thấy manager, kiểm tra mật khẩu
+            $manager = $result_manager->fetch_assoc();
+            if ($password === $manager['password']) { // So sánh mật khẩu gốc
+                echo "<script>alert('Đăng nhập thành công!'); window.location.href = 'http://localhost/My%20project/BTL-PTUDWeb/shoppe/ADMIN/php/index.php';</script>";
+            } else {
+                echo "<script>alert('Mật khẩu không đúng!'); window.location.href = 'login.php';</script>";
             }
         } else {
             echo "<script>alert('Email không tồn tại!'); window.location.href = 'login.php';</script>";
@@ -52,11 +72,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
         }
 
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // Kiểm tra email đã tồn tại trong bảng user hay manager
+        $sql_check_user = "SELECT * FROM user WHERE email = ?";
+        $stmt_check_user = $conn->prepare($sql_check_user);
+        $stmt_check_user->bind_param("s", $email);
+        $stmt_check_user->execute();
+        $result_check_user = $stmt_check_user->get_result();
 
+        $sql_check_manager = "SELECT * FROM manager WHERE email = ?";
+        $stmt_check_manager = $conn->prepare($sql_check_manager);
+        $stmt_check_manager->bind_param("s", $email);
+        $stmt_check_manager->execute();
+        $result_check_manager = $stmt_check_manager->get_result();
+
+        // Kiểm tra nếu email đã tồn tại trong bất kỳ bảng nào
+        if ($result_check_user->num_rows > 0 || $result_check_manager->num_rows > 0) {
+            echo "<script>alert('Email đã tồn tại!'); window.location.href = 'login.php';</script>";
+            exit;
+        }
+
+        // Không mã hóa mật khẩu, lưu trực tiếp (chú ý bảo mật)
         $sql = "INSERT INTO user (email, password) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $email, $hashed_password);
+        $stmt->bind_param("ss", $email, $password);  // Lưu mật khẩu gốc
 
         if ($stmt->execute()) {
             echo "<script>alert('Đăng ký thành công!'); window.location.href = 'login.php';</script>";
@@ -70,6 +108,15 @@ $conn->close();
 
 
 
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,7 +124,6 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login & Register</title>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -143,28 +189,12 @@ $conn->close();
             border-radius: 5px;
             font-size: 1rem;
             margin-bottom: 25px;
-            margin-bottom: 25px;
         }
 
         .auth-form__input:focus {
             border-color: #007bff;
             outline: none;
             box-shadow: 0 0 3px rgba(0, 123, 255, 0.25);
-        }
-
-        .auth-form__aside {
-            font-size: 0.85rem;
-            color: #666;
-            text-align: center;
-        }
-
-        .auth-form__policy-text a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .auth-form__policy-text a:hover {
-            text-decoration: underline;
         }
 
         .auth-form__controls {
@@ -198,21 +228,6 @@ $conn->close();
 
         .btn--primary:hover {
             background-color: #0056b3;
-        }
-
-        .auth-form__help {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-        }
-
-        .auth-form__help-link {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .auth-form__help-link:hover {
-            text-decoration: underline;
         }
     </style>
 

@@ -26,10 +26,10 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="stylesheet" href="./assets/css/base.css">
-    <link rel="stylesheet" href="./assets/css/main.css">
-    <link rel="stylesheet" href="./assets/css/Grid.css">
-    <link rel="stylesheet" href="./assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/Grid.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
 
     <!-- <link rel="stylesheet" href="./css/reset.css"> -->
     <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" /> -->
@@ -38,6 +38,9 @@ $result = $conn->query($sql);
         rel="stylesheet">
    
 </head>
+
+
+
 
 <body>
     <!-- header -->
@@ -105,7 +108,7 @@ $result = $conn->query($sql);
                                 </a>
                             </li>
                             <li class="header__navbar-item header__navbar-user">
-                                <img src="./assets/img/product2.jpg" alt="" class="header__navbar-user-img">
+                                <img src="../assets/img/product2.jpg" alt="" class="header__navbar-user-img">
                                 <span class="header__navbar-user-name">User</span>
 
                                 <ul class="header__navbar-user-menu">
@@ -142,7 +145,7 @@ $result = $conn->query($sql);
                     </label>
                     <div class="header__logo hide-on-tablet">
                         <a href="#" class="header__logo-link">
-                            <img src="./assets/img/shopee-logo.jpg" alt="">
+                            <img src="../assets/img/shopee-logo.jpg" alt="">
                         </a>
                     </div>
                     <input type="checkbox" hidden id="mobile-search-checkbox" class="header__search-checkbox">
@@ -228,8 +231,7 @@ $result = $conn->query($sql);
                                 <li class="category-item category-item--active" data-category="all">
                                     <a href="#" class="category-item__link">Tất Cá</a>
                                 </li>
-                                <li class="category-item" data-category="tech">
-                                    <a href="#" class="category-item__link">Đồ Công Nghệ</a>
+                                
                             </ul>
                         </nav>
                     </div>
@@ -557,15 +559,15 @@ $result = $conn->query($sql);
                 <div class="col l-2-4 m-8 c-12">
                     <h3 class="footer__heading">Vào cửa hàng trên ứng dụng</h3>
                     <div class="footer__download">
-                        <img src="./assets/img/img1.png" alt="Download QR" class="footer__download-qr">
+                        <img src="../assets/img/img1.png" alt="Download QR" class="footer__download-qr">
                         <div class="footer__download-apps">
                             <a href="https://play.google.com/store/search?q=shopee&c=apps&hl=en-US"
                                 class="footer__download-app-link">
-                                <img src="./assets/img/img3.png" alt="Google play" class="footer__download-app-img">
+                                <img src="../assets/img/img3.png" alt="Google play" class="footer__download-app-img">
                             </a>
                             <a href="https://apps.apple.com/vn/app/shopee-mua-s%E1%BA%AFm-online/id959841449"
                                 class="footer__download-app-link">
-                                <img src="./assets/img/img2.png" alt="App store" class="footer__download-app-img">
+                                <img src="../assets/img/img2.png" alt="App store" class="footer__download-app-img">
                             </a>
                         </div>
                     </div>
