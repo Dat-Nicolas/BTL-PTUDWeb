@@ -393,14 +393,22 @@ function showToastMessage(message) {
 
 // Xử lý khi bấm vào nút "Đặt Hàng"
 document.querySelector(".header__cart-buy").addEventListener("click", () => {
-  // Hiển thị hộp thoại xác nhận
+  // Lấy danh sách sản phẩm trong giỏ hàng
+  const cartItems = document.getElementById("cart-items");
+  const cartNotice = document.querySelector(".header__cart-notice");
+  const cartTotal = document.getElementById("cart-total-left");
+
+  // Kiểm tra xem giỏ hàng có sản phẩm không
+  if (cartItems.children.length === 0) {
+    // Nếu giỏ hàng không có sản phẩm, hiển thị thông báo và hủy việc đặt hàng
+    showToastMessage("Giỏ hàng không có sản phẩm. Đặt hàng bị hủy.");
+    return; // Hủy bỏ tiếp tục xử lý đặt hàng
+  }
+
+  // Nếu giỏ hàng có sản phẩm, hiển thị hộp thoại xác nhận
   const userConfirmed = confirm("Bạn có chắc chắn muốn đặt hàng?");
   if (userConfirmed) {
     // Xóa tất cả sản phẩm khỏi giỏ hàng
-    const cartItems = document.getElementById("cart-items");
-    const cartNotice = document.querySelector(".header__cart-notice");
-    const cartTotal = document.getElementById("cart-total-left");
-
     cartItems.innerHTML = ""; // Xóa nội dung danh sách sản phẩm
     cartNotice.textContent = "0"; // Cập nhật số lượng sản phẩm về 0
     cartTotal.textContent = ""; // Xóa tổng tiền
