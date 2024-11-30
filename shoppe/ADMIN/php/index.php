@@ -33,8 +33,8 @@ $result = $conn->query($sql);
         <div class="search-container">
             <input type="text" id="search" placeholder="Tìm kiếm sản phẩm..." onkeyup="searchProduct()">
             <button onclick="location.href='add_product.php'">Thêm Sản Phẩm</button>
-            <button onclick="location.href='http://localhost/My%20project/BTL-PTUDWeb/shoppe/ADMIN/php/user/index_user.php'"> Quản lý người dùng</button>
-            <button onclick="location.href='http://localhost/My%20project/BTL-PTUDWeb/shoppe/ADMIN/php/user/index_manager.php'"> Quản lý ADMIN</button>
+            <button onclick="location.href='user/index_user.php'"> Quản lý người dùng</button>
+            <button onclick="location.href='user/index_manager.php'"> Quản lý ADMIN</button>
         </div>
         <table id="product-table">
             <thead>

@@ -38,9 +38,8 @@ $result = $conn->query($sql);
             <form method="GET">
                 <input style="margin: 20px 30px;" type="text" name="search" placeholder="Tìm kiếm ADMIN..." value="<?php echo htmlspecialchars($search); ?>">
             </form>
-            <button onclick="location.href='add_manager.php'">Thêm ADMIN</button>
-            <button onclick="location.href='http://localhost/My%20project/BTL-PTUDWeb/shoppe/ADMIN/php/index.php'"> Quản lý sản phẩm</button>
-            <button onclick="location.href='http://localhost/My%20project/BTL-PTUDWeb/shoppe/ADMIN/php/manager/index_manager.php'"> Quản lý người dùng</button>
+            <button onclick="location.href='user/add_manager.php'">Thêm ADMIN</button>
+            
         </div>
         <table id="manager-table">
             <thead>
