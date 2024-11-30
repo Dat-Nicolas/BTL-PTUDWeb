@@ -37,13 +37,16 @@ button {
 }
 
 button:hover {
-    background-color: #d4431f; /* Làm cho màu sáng hơn khi hover */
-    transform: translateY(-2px); /* Hiệu ứng nhấn nhẹ */
+    background-color: #d4431f;
+    /* Làm cho màu sáng hơn khi hover */
+    transform: translateY(-2px);
+    /* Hiệu ứng nhấn nhẹ */
 }
 
 /* Thanh tìm kiếm */
 #search {
-    width: 300px; /* Mở rộng thanh tìm kiếm */
+    width: 300px;
+    /* Mở rộng thanh tìm kiếm */
     padding: 12px;
     margin: 20px 0px 0px 40px;
     border: 1px solid #ddd;
@@ -69,7 +72,8 @@ table {
 }
 
 /* Thẻ trong bảng */
-table th, table td {
+table th,
+table td {
     padding: 12px 20px;
     text-align: left;
     font-size: 16px;
@@ -126,7 +130,8 @@ table td a:hover {
         font-size: 14px;
     }
 
-    table th, table td {
+    table th,
+    table td {
         padding: 10px;
     }
 

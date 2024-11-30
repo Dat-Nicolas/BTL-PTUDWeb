@@ -36,7 +36,7 @@ $result = $conn->query($sql);
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;&display=swap&subnet=vietnamese"
         rel="stylesheet">
-   
+
 </head>
 
 
@@ -152,14 +152,14 @@ $result = $conn->query($sql);
                     <div class="header__search">
                         <div class="header__search-input-wrap">
                             <input type="text" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
-                           
+
                             <div class="header__search-history">
                                 <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
                                 <ul class="header__search-history-list">
                                     <li class="header__search-history-item">
                                         <a href="">Đồ Công Nghệ</a>
                                     </li>
-                                   
+
                                 </ul>
                             </div>
 
@@ -231,7 +231,7 @@ $result = $conn->query($sql);
                                 <li class="category-item category-item--active" data-category="all">
                                     <a href="#" class="category-item__link">Tất Cá</a>
                                 </li>
-                                
+
                             </ul>
                         </nav>
                     </div>

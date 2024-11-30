@@ -60,4 +60,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Đóng kết nối
 $conn->close();
-?>

@@ -25,18 +25,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $rating = $_POST['rating'];
 
     // Tính phần trăm giảm giá
-    if ($old_price > 0 && $old_price > $current_price && $current_price >0 ) {
+    if ($old_price > 0 && $old_price > $current_price && $current_price > 0) {
         $discount = (($old_price - $current_price) / $old_price) * 100;
-        $discount = round($discount, 2); 
-    }
-    else {
-        $discount = 0; 
+        $discount = round($discount, 2);
+    } else {
+        $discount = 0;
     }
 
     // Chèn sản phẩm mới vào cơ sở dữ liệu
     $sql = "INSERT INTO products (name, image, old_price, current_price, sold, brand, origin, discount, rating)
             VALUES ('$name', '$image', '$old_price', '$current_price', '$sold', '$brand', '$origin', '$discount', '$rating')";
-    
+
     if ($conn->query($sql) === TRUE) {
         echo "Sản phẩm mới đã được thêm thành công!";
         header("Location: index.php");
@@ -51,12 +50,14 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm Sản Phẩm Mới</title>
     <link rel="stylesheet" href="add_product.css">
 </head>
+
 <body>
     <header>
         <h1>Thêm Sản Phẩm Mới</h1>
@@ -112,4 +113,5 @@ $conn->close();
         </div>
     </main>
 </body>
+
 </html>

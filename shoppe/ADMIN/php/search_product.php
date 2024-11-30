@@ -25,7 +25,7 @@ $result = $stmt->get_result();
 
 // Hiển thị kết quả tìm kiếm
 if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         echo "<div class='product-item'>";
         echo "<img src='" . $row['image'] . "' alt='" . $row['name'] . "' />";
         echo "<h4>" . $row['name'] . "</h4>";
@@ -37,4 +37,3 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-?>

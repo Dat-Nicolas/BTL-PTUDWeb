@@ -10,7 +10,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;  /* Ensure full viewport height */
+    min-height: 100vh;
+    /* Ensure full viewport height */
     background-color: #f4f7fc;
     font-family: Arial, sans-serif;
 }
@@ -23,7 +24,8 @@ body {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin: 20px;  /* Optional margin for spacing on smaller screens */
+    margin: 20px;
+    /* Optional margin for spacing on smaller screens */
 }
 
 /* Styling for form */

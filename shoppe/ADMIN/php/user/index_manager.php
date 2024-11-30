@@ -21,12 +21,14 @@ $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý ADMIN</title>
     <link rel="stylesheet" href="styles4.css">
 </head>
+
 <body>
     <header>
         <h1>Quản Lý ADMIN</h1>
@@ -50,7 +52,7 @@ $result = $conn->query($sql);
             </thead>
             <tbody>
                 <?php if ($result && $result->num_rows > 0): ?>
-                    <?php while($row = $result->fetch_assoc()): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($row['email']); ?></td>
                             <td><?php echo htmlspecialchars($row['password']); ?></td>
@@ -69,5 +71,6 @@ $result = $conn->query($sql);
         </table>
     </main>
 </body>
+
 </html>
 <?php $conn->close(); ?>

@@ -17,12 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Lấy dữ liệu từ form
     $email = $_POST['email'];
     $password = $_POST['password'];
-   
+
 
     // Chèn sản phẩm mới vào cơ sở dữ liệu
     $sql = "INSERT INTO manager (email, password)
             VALUES ('$email', '$password')";
-    
+
     if ($conn->query($sql) === TRUE) {
         echo "Sản phẩm mới đã được thêm thành công!";
         header("Location: index_manager.php");
@@ -37,12 +37,14 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm ADMIN</title>
     <link rel="stylesheet" href="add_manager.css">
 </head>
+
 <body>
     <header>
         <h1>Thêm ADMIN Mới</h1>
@@ -59,7 +61,7 @@ $conn->close();
                     <label for="password">Password</label>
                     <input type="text" id="password" name="password" required>
                 </div>
-                <div class="form-actions" >
+                <div class="form-actions">
                     <button type="submit" style="margin-top: 10px;">Thêm ADMIN</button>
                     <a href="index_manager.php"><button type="button" style="margin-top: 10px;">Quay Lại</button></a>
                 </div>
@@ -67,4 +69,5 @@ $conn->close();
         </div>
     </main>
 </body>
+
 </html>

@@ -26,7 +26,7 @@ if (isset($product_id)) {
         $stmt_delete->bind_param("i", $product_id);
         $stmt_delete->execute();
 
-       
+
 
         // Bước 3: Cập nhật lại AUTO_INCREMENT (đảm bảo ID tiếp theo sẽ đúng)
         $reset_auto_increment = "ALTER TABLE products AUTO_INCREMENT = 1";
@@ -34,13 +34,11 @@ if (isset($product_id)) {
 
         // Bước 4: Commit giao dịch (nếu không có lỗi)
         $conn->commit();
-
     } catch (Exception $e) {
         // Nếu có lỗi, rollback giao dịch
         $conn->rollback();
         echo "Lỗi: " . $e->getMessage();
     }
-
 } else {
     echo "Không có id sản phẩm để xóa.";
 }
@@ -50,4 +48,3 @@ $conn->close();
 // Chuyển hướng về trang danh sách sản phẩm sau 3 giây
 header("Refresh: 1; url=index.php");
 exit;
-?>

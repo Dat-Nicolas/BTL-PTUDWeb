@@ -391,9 +391,6 @@ function showToastMessage(message) {
   }, 3000);
 }
 
-
-
-
 // Xử lý khi bấm vào nút "Đặt Hàng"
 document.querySelector(".header__cart-buy").addEventListener("click", () => {
   // Hiển thị hộp thoại xác nhận
@@ -415,19 +412,3 @@ document.querySelector(".header__cart-buy").addEventListener("click", () => {
     showToastMessage("Đặt hàng đã bị hủy.");
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

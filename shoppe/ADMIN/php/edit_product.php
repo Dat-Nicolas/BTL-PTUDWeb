@@ -49,12 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $image = $image_url;
     }
     // Tính phần trăm giảm giá
-    if ($old_price > 0 && $old_price > $current_price &&$current_price > 0 ) {
+    if ($old_price > 0 && $old_price > $current_price && $current_price > 0) {
         $discount = (($old_price - $current_price) / $old_price) * 100;
-        $discount = round($discount, 2); 
-    }
-    else {
-        $discount = 0; 
+        $discount = round($discount, 2);
+    } else {
+        $discount = 0;
     }
 
     // Cập nhật thông tin sản phẩm
@@ -107,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <img src="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" alt="image" width="100"><br>
                 <?php endif; ?>
             </div>
-    
+
             <!-- Hiển thị ảnh hiện tại -->
             <div class="form-edit__detail">
 
