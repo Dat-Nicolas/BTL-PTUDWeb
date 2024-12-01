@@ -38,7 +38,9 @@ $result = $conn->query($sql);
             <form method="GET">
                 <input style="margin: 20px 30px;" type="text" name="search" placeholder="Tìm kiếm người dùng..." value="<?php echo htmlspecialchars($search); ?>">
             </form>
-            <button onclick="location.href='user/add_user.php'">Thêm Người Dùng</button>
+            <button onclick="location.href='/BTL-PTUDWeb/shoppe/ADMIN/php/user/add_user.php'">Thêm Người Dùng</button>
+            <button onclick="location.href='/BTL-PTUDWeb/shoppe/ADMIN/php/index.php'">Quản lý sản phẩm</button>
+            <button onclick="location.href='/BTL-PTUDWeb/shoppe/ADMIN/php/user/index_manager.php'">Quản lý ADMIN</button>
           
 
         </div>

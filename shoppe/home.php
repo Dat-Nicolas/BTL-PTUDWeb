@@ -122,7 +122,7 @@ $result = $conn->query($sql);
                                         <a href="">Lịch sử đơn hàng</a>
                                     </li>
                                     <li class="header__navbar-user-item header__navbar-user-item--separate">
-                                        <a href="http://localhost/My%20project/BTL-PTUDWeb/login.php">Đăng xuất</a>
+                                        <a href="http://localhost/BTL-PTUDWeb/login.php">Đăng xuất</a>
                                     </li>
                                 </ul>
                             </li>

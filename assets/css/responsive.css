@@ -45,9 +45,7 @@
         width: 100%;
     }
 
-    .header__cart-wrap:hover .header__cart-list {
-        display: none;
-    }
+
 }
 
 
@@ -173,7 +171,35 @@
         background-color: bisque;
         padding-bottom: 0;
     }
+    .product-modal__content {
+        width: 40rem;
+        height: 40rem;
+    }
+    .modal-price #modal-current-price {
+        font-size: 3rem;
+        margin-left: 0;
+    }
 
+    .modal-price {
+        display: block;
+        margin-top: 0;
+        line-height: 4rem;
+    }
+
+    .header__cart-item-decrease {
+        margin-left: 73%;
+        border-radius: 50%;
+        font-size: 1rem;
+        border: 2px solid rgb(169, 64, 64);
+    }
+    
+    .header__cart-item-increase {
+        border-radius: 50%;
+        border: 2px solid rgb(169, 64, 64);
+        font-size: 1rem;
+    }
+    
+    
 
     @keyframes mobileSearchSideIn {
         from {

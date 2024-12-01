@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Nếu tìm thấy user, kiểm tra mật khẩu
             $user = $result_user->fetch_assoc();
             if ($password === $user['password']) { // So sánh mật khẩu gốc
-                echo "<script>alert('Đăng nhập thành công!'); window.location.href = 'http://localhost/My%20project/BTL-PTUDWeb/shoppe/home.php';</script>";
+                echo "<script>alert('Đăng nhập thành công!'); window.location.href = '/BTL-PTUDWeb/shoppe/home.php';</script>";
             } else {
                 echo "<script>alert('Mật khẩu không đúng!'); window.location.href = 'login.php';</script>";
             }
@@ -55,13 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Nếu tìm thấy manager, kiểm tra mật khẩu
             $manager = $result_manager->fetch_assoc();
             if ($password === $manager['password']) { // So sánh mật khẩu gốc
-                echo "<script>alert('Đăng nhập thành công!'); window.location.href = 'http://localhost/My%20project/BTL-PTUDWeb/shoppe/ADMIN/php/index.php';</script>";
+                echo "<script>alert('Đăng nhập thành công!'); window.location.href = '/BTL-PTUDWeb/shoppe/ADMIN/php/index.php';</script>";
             } else {
                 echo "<script>alert('Mật khẩu không đúng!'); window.location.href = 'login.php';</script>";
             }
         } else {
             echo "<script>alert('Email không tồn tại!'); window.location.href = 'login.php';</script>";
         }
+        
     } elseif (isset($_POST['register'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
